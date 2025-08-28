@@ -1,0 +1,70 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!bun.lock"]
+  },
+  "formatter": {
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100,
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn"
+      },
+      "style": {
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "attributePosition": "auto",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedAttributes": "on"
+      }
+    }
+  },
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false
+  }
+}
