@@ -3,8 +3,13 @@
   "workspaces": {
     "": {
       "name": "greed",
+      "dependencies": {
+        "discord-hono": "^0.19.4",
+      },
       "devDependencies": {
         "@types/bun": "1.2.21",
+        "@types/node": "^24.3.0",
+        "discord-api-types": "^0.38.21",
         "typescript": "5.9.2",
       },
     },
@@ -19,6 +24,10 @@
     "bun-types": ["bun-types@1.2.21", "", { "dependencies": { "@types/node": "*" }, "peerDependencies": { "@types/react": "^19" } }, "sha512-sa2Tj77Ijc/NTLS0/Odjq/qngmEPZfbfnOERi0KRUYhT9R8M4VBioWVmMWE5GrYbKMc+5lVybXygLdibHaqVqw=="],
 
     "csstype": ["csstype@3.1.3", "", {}, "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="],
+
+    "discord-api-types": ["discord-api-types@0.38.21", "", {}, "sha512-E6KtXUNjZVIYP1GMjmeRdAC1xRql9xtSahRwJYpP74/hJ6Q2i2oTp6ZbFG/FUN0WqtdW2igHDsJyF2u9hV8pHQ=="],
+
+    "discord-hono": ["discord-hono@0.19.4", "", {}, "sha512-YaLR4eifb7JUL27inaNbhbFnFOXWZo7Dx3ragpApOY6LHxowyQWp7RNdm5wtz/dHYso1Y6uZ3OtA24jjy4SPlw=="],
 
     "typescript": ["typescript@5.9.2", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A=="],
 

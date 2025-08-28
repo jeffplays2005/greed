@@ -3,8 +3,13 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "dependencies": {
+    "discord-hono": "^0.19.4"
+  },
   "devDependencies": {
     "@types/bun": "1.2.21",
+    "@types/node": "^24.3.0",
+    "discord-api-types": "^0.38.21",
     "typescript": "5.9.2"
   }
 }
