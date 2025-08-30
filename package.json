@@ -14,7 +14,11 @@
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
-    "discord-hono": "^0.19.4"
+    "@keyv/postgres": "^2.1.7",
+    "@keyv/sqlite": "^4.0.5",
+    "discord-hono": "^0.19.4",
+    "dotenv": "^17.2.1",
+    "keyv": "^5.5.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
