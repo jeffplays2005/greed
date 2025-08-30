@@ -1,8 +1,18 @@
 {
   "name": "greed",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "lint": "biome lint",
+    "lint:all": "biome lint .",
+    "lint:fix": "biome lint --write",
+    "format": "biome format",
+    "format:all": "biome format .",
+    "format:fix": "biome format --write",
+    "register": "bun ./src/register.ts",
+    "deploy": "wrangler deploy --minify"
+  },
   "dependencies": {
     "discord-hono": "^0.19.4"
   },
@@ -11,6 +21,7 @@
     "@types/bun": "1.2.21",
     "@types/node": "^24.3.0",
     "discord-api-types": "^0.38.21",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "wrangler": "^4.33.1"
   }
 }

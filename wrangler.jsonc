@@ -1,0 +1,5 @@
+{
+  "name": "greed",
+  "compatibility_date": "2025-08-30",
+  "main": "src/index.ts",
+}
