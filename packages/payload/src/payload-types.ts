@@ -63,10 +63,11 @@ export type SupportedTimezones =
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
+    admins: AdminAuthOperations;
   };
   blocks: {};
   collections: {
+    admins: Admin;
     users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
@@ -75,6 +76,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    admins: AdminsSelect<false> | AdminsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -87,15 +89,15 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
+  user: Admin & {
+    collection: 'admins';
   };
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
-export interface UserAuthOperations {
+export interface AdminAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -115,9 +117,9 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "admins".
  */
-export interface User {
+export interface Admin {
   id: string;
   updatedAt: string;
   createdAt: string;
@@ -136,6 +138,15 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -164,6 +175,10 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'admins';
+        value: string | Admin;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -173,8 +188,8 @@ export interface PayloadLockedDocument {
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
-    value: string | User;
+    relationTo: 'admins';
+    value: string | Admin;
   };
   updatedAt: string;
   createdAt: string;
@@ -186,8 +201,8 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: 'users';
-    value: string | User;
+    relationTo: 'admins';
+    value: string | Admin;
   };
   key?: string | null;
   value?:
@@ -215,9 +230,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "admins_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface AdminsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -234,6 +249,14 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

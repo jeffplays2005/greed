@@ -1,9 +1,9 @@
-// storage-adapter-import-placeholder
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
-import path from "path"
 import { buildConfig } from "payload"
 import sharp from "sharp"
-import { fileURLToPath } from "url"
+import { Admins } from "./collections/Admins"
 import { Media } from "./collections/Media"
 import { Users } from "./collections/Users"
 
@@ -12,12 +12,12 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
+    user: Admins.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Admins, Users, Media],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
