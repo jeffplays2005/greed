@@ -1,0 +1,9 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": [".env"],
+  "tasks": {
+    "generate:types": {
+      "inputs": ["$TURBO_DEFAULT$"]
+    }
+  }
+}

@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "generate:types": "turbo run generate:types",
     "lint": "biome lint",
     "lint:all": "biome lint .",
     "lint:fix": "biome lint --write",
@@ -11,7 +12,9 @@
     "format:all": "biome format .",
     "format:fix": "biome format --write"
   },
-  "dependencies": {},
+  "dependencies": {
+    "turbo": "^2.5.6"
+  },
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@types/node": "^24.3.0",
@@ -26,5 +29,6 @@
   "workspaces": [
     "apps/bot",
     "packages/payload"
-  ]
+  ],
+  "packageManager": "bun@1.2.19"
 }
