@@ -1,6 +1,9 @@
 import { Command, register } from "discord-hono"
 
-const commands = [new Command("ping", "Replies with Pong!")]
+const commands = [
+  new Command("ping", "Replies with Pong!"),
+  new Command("bal", "check a users balance"),
+]
 
 register(
   commands,

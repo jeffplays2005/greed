@@ -9,23 +9,22 @@
     "lint:fix": "biome lint --write",
     "format": "biome format",
     "format:all": "biome format .",
-    "format:fix": "biome format --write",
-    "register": "bun ./src/register.ts",
-    "deploy": "wrangler deploy --minify"
+    "format:fix": "biome format --write"
   },
-  "dependencies": {
-    "@keyv/postgres": "^2.1.7",
-    "@keyv/sqlite": "^4.0.5",
-    "discord-hono": "^0.19.4",
-    "dotenv": "^17.2.1",
-    "keyv": "^5.5.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
-    "@types/bun": "1.2.21",
     "@types/node": "^24.3.0",
-    "discord-api-types": "^0.38.21",
+    "dotenv": "^17.2.1",
     "typescript": "5.9.2",
     "wrangler": "^4.33.1"
-  }
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": "^10.0.0"
+  },
+  "workspaces": [
+    "apps/bot",
+    "packages/payload"
+  ]
 }

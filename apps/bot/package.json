@@ -1,0 +1,19 @@
+{
+  "name": "greedbot",
+  "private": true,
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "register": "bun ./src/register.ts",
+    "deploy": "wrangler deploy --minify"
+  },
+  "dependencies": {
+    "@keyv/postgres": "^2.1.7",
+    "@keyv/sqlite": "^4.0.5",
+    "discord-hono": "^0.19.4",
+    "keyv": "^5.5.0"
+  },
+  "devDependencies": {
+    "discord-api-types": "^0.38.21"
+  }
+}
