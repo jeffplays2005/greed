@@ -145,6 +145,11 @@ export interface Admin {
  */
 export interface User {
   id: string;
+  balance: number;
+  /**
+   * Example format: name;8=====D
+   */
+  pp?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -255,6 +260,8 @@ export interface AdminsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  balance?: T;
+  pp?: T;
   updatedAt?: T;
   createdAt?: T;
 }
