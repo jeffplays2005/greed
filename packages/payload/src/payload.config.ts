@@ -20,7 +20,11 @@ export default buildConfig({
   collections: [Admins, Users, Media],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
-    outputFile: path.resolve(dirname, "payload-types.ts"),
+    outputFile: path.resolve(dirname, "../../shared/src/payload-types.ts"),
+    declare: false,
+  },
+  graphQL: {
+    disable: true,
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || "",
