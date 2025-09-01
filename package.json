@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "dev": "turbo run dev",
     "generate:types": "turbo run generate:types",
     "lint": "biome lint",
     "lint:all": "biome lint .",

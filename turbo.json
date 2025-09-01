@@ -4,6 +4,11 @@
   "tasks": {
     "generate:types": {
       "inputs": ["$TURBO_DEFAULT$"]
+    },
+    "dev": {
+      "persistent": true,
+      "cache": false
     }
-  }
+  },
+  "ui": "tui"
 }
