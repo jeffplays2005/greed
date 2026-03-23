@@ -1,50 +1,34 @@
-import type {
-  DmsOnlyPermissionSet,
-  GuildOnlyPermissionSet,
-  NoLocationRestrictionPermissionSet,
-} from "./Permissions"
+import type { Message } from "discord.js"
+import type { Client } from "../Client"
 
 /**
- * The base command config type used to unionise typings
+ * Base command props
  */
-export type BaseCommandConfig = {
+export type BaseCommandProps = {
   /**
-   * The name of the command
+   * The original message to be parsed
    */
-  name: string
+  message: Message
   /**
-   * The description of the command (used for help command)
+   * The discord client
    */
-  description: string
+  bot: Client
   /**
-   * A list of usages
-   * @remarks Do not include the prefix within the usage, this is appended
+   * A string list of arguments passed through during message event
    */
-  usage: string[]
+  args: string[]
   /**
-   * A list of aliases
+   * The database object
+   * @remarks TODO
    */
-  aliases: string[]
+  db: unknown
   /**
-   * The cooldown in seconds for this command, use 0 for no cooldown
-   * @example 1
+   * The prefix the user uses
    */
-  cooldown: number
+  prefix: string
   /**
-   * Various permission config options
+   * The embed color to use
+   * @default #2f3136
    */
-  permissionSet: GuildOnlyPermissionSet | DmsOnlyPermissionSet | NoLocationRestrictionPermissionSet
-  /**
-   * If the command is disabled
-   */
-  disabled: boolean
-  /**
-   * If the command is dev only
-   * @remarks Takes prescedence over other permissions
-   */
-  dev: boolean
-  /**
-   * If the command should be hidden away from the help command
-   */
-  hide?: boolean
+  color: string
 }
