@@ -2,8 +2,11 @@
   "name": "bot",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "main": "src/index.ts",
-  "scripts": {},
+  "scripts": {
+    "dev": "node ."
+  },
   "dependencies": {
     "discord.js": "^14.25.1"
   },
