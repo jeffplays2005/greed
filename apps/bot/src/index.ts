@@ -1,7 +1,8 @@
-import { Client as DiscordClient, GatewayIntentBits } from "discord.js"
+import { Collection, Client as DiscordClient, GatewayIntentBits } from "discord.js"
 import "dotenv/config"
 import EventManager from "./managers/EventManager"
 import type { Client } from "./types/Client"
+import type { CacheCollectionKeys } from "./types/Collection"
 
 const bot: Client = new DiscordClient({
   intents: [
@@ -10,6 +11,8 @@ const bot: Client = new DiscordClient({
     GatewayIntentBits.MessageContent,
   ],
 })
+
+bot.cache = new Collection<CacheCollectionKeys, unknown>()
 
 EventManager(bot)
 
