@@ -33,18 +33,21 @@ export type BaseCommandConfig = {
   /**
    * Various permission config options
    */
-  permissionSet: GuildOnlyPermissionSet | DmsOnlyPermissionSet | NoLocationRestrictionPermissionSet
+  permissionSet?: GuildOnlyPermissionSet | DmsOnlyPermissionSet | NoLocationRestrictionPermissionSet
   /**
    * If the command is disabled
+   * @default false
    */
-  disabled: boolean
+  disabled?: boolean
   /**
    * If the command is dev only
    * @remarks Takes prescedence over other permissions
+   * @default false
    */
-  dev: boolean
+  dev?: boolean
   /**
    * If the command should be hidden away from the help command
+   * @default false
    */
   hide?: boolean
 }
