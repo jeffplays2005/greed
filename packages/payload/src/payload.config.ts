@@ -1,6 +1,7 @@
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
+import type { Config } from "@repo/shared/payload-types"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 import { Admins } from "./collections/Admins"
@@ -34,3 +35,7 @@ export default buildConfig({
     // storage-adapter-placeholder
   ],
 })
+
+declare module "payload" {
+  export interface GeneratedTypes extends Config {}
+}

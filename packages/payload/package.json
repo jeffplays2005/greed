@@ -5,6 +5,9 @@
   "license": "MIT",
   "type": "module",
   "private": true,
+  "exports": {
+    "./payload-config": "./src/payload.config.ts"
+  },
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
@@ -28,6 +31,7 @@
     "sharp": "0.34.2"
   },
   "devDependencies": {
+    "@repo/shared": "workspace:*",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.5.2",

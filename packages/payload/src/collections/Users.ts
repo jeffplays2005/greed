@@ -4,6 +4,12 @@ export const Users: CollectionConfig = {
   slug: "users",
   fields: [
     {
+      name: "userId",
+      type: "text",
+      required: true,
+      unique: true,
+    },
+    {
       name: "balance",
       type: "number",
       defaultValue: 100,

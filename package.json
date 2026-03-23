@@ -29,7 +29,8 @@
   },
   "workspaces": [
     "apps/bot",
-    "packages/payload"
+    "packages/payload",
+    "packages/shared"
   ],
   "packageManager": "bun@1.3.9"
 }
