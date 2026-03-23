@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "discord.js": "^14.25.1"
+  },
   "devDependencies": {}
 }
