@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "greed",
@@ -14,7 +15,7 @@
         "wrangler": "^4.33.1",
       },
     },
-    "apps/bot": {
+    "apps/discord-hono": {
       "name": "greedbot",
       "version": "1.0.0",
       "dependencies": {
@@ -43,6 +44,7 @@
         "sharp": "0.34.2",
       },
       "devDependencies": {
+        "@repo/shared": "workspace:*",
         "@types/react": "19.1.8",
         "@types/react-dom": "19.1.6",
         "@vitejs/plugin-react": "4.5.2",
@@ -50,6 +52,9 @@
         "vite-tsconfig-paths": "5.1.4",
         "vitest": "3.2.3",
       },
+    },
+    "packages/shared": {
+      "name": "@repo/shared",
     },
   },
   "packages": {
@@ -354,6 +359,8 @@
     "@poppinss/exception": ["@poppinss/exception@1.2.2", "", {}, "sha512-m7bpKCD4QMlFCjA/nKTs23fuvoVFoA83brRKmObCUNmi/9tVu8Ve3w4YQAnJu4q3Tjf5fr685HYIC/IA2zHRSg=="],
 
     "@repo/payload": ["@repo/payload@workspace:packages/payload"],
+
+    "@repo/shared": ["@repo/shared@workspace:packages/shared"],
 
     "@rolldown/pluginutils": ["@rolldown/pluginutils@1.0.0-beta.11", "", {}, "sha512-L/gAA/hyCSuzTF1ftlzUSI/IKr2POHsv1Dd78GfqkR83KMNuswWD61JxGV2L7nRwBBBSDr6R1gCkdTmoN7W4ag=="],
 
@@ -713,7 +720,7 @@
 
     "graphql-scalars": ["graphql-scalars@1.22.2", "", { "dependencies": { "tslib": "^2.5.0" }, "peerDependencies": { "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0" } }, "sha512-my9FB4GtghqXqi/lWSVAOPiTzTnnEzdOXCsAC2bb5V7EFNQjVjwy3cSSbUvgYOtDuDibd+ZsCDhz+4eykYOlhQ=="],
 
-    "greedbot": ["greedbot@workspace:apps/bot"],
+    "greedbot": ["greedbot@workspace:apps/discord-hono"],
 
     "has-unicode": ["has-unicode@2.0.1", "", {}, "sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ=="],
 
