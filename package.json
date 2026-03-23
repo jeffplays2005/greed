@@ -19,7 +19,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@types/node": "^24.3.0",
-    "dotenv": "^17.2.1",
+    "dotenv": "^17.3.1",
     "typescript": "5.9.2",
     "wrangler": "^4.33.1"
   },
@@ -28,6 +28,7 @@
     "pnpm": "^10.0.0"
   },
   "workspaces": [
+    "apps/bot",
     "apps/discord-hono",
     "packages/payload",
     "packages/shared"
