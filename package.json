@@ -28,6 +28,7 @@
     "pnpm": "^10.0.0"
   },
   "workspaces": [
+    "apps/bot",
     "apps/discord-hono",
     "packages/payload",
     "packages/shared"
