@@ -1,8 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+    "rootDir": ".",
+    "outDir": "./dist",
+    "declaration": true,
+    "noEmit": true,
+    "declarationDir": "./dist/types",
+    "baseUrl": ".",
+    "paths": {},
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "preserveSymlinks": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

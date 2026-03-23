@@ -2,10 +2,9 @@
   "name": "bot",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "node ."
+    "dev": "bun src/index.ts"
   },
   "dependencies": {
     "discord.js": "^14.25.1"
