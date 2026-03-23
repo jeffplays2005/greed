@@ -1,8 +1,9 @@
-import { Client, GatewayIntentBits } from "discord.js"
+import { Client as DiscordClient, GatewayIntentBits } from "discord.js"
 import "dotenv/config"
 import EventManager from "./managers/EventManager"
+import type { Client } from "./types/Client"
 
-const bot = new Client({
+const bot: Client = new DiscordClient({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,

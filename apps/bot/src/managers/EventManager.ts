@@ -1,4 +1,5 @@
-import { type Client, Events } from "discord.js"
+import { Events } from "discord.js"
+import type { Client } from "src/types/Client"
 import ReadyEvent from "../events/ReadyEvent"
 
 /**
