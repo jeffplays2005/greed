@@ -6,14 +6,14 @@ import EventManager from "./managers/EventManager"
 import type { Client } from "./types/Client"
 import type { CacheCollectionKeys } from "./types/Collection"
 
-const bot: Client = new DiscordClient({
+const bot = new DiscordClient({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
-    GatewayIntentBits.DirectMessages
+    GatewayIntentBits.DirectMessages,
   ],
-})
+}) as Client
 
 bot.cache = new Collection<CacheCollectionKeys, unknown>()
 bot.config = Config
