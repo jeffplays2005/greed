@@ -9,7 +9,7 @@
     "paths": {
       "src/*": ["./*"]
     },
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "preserveSymlinks": true,
     "esModuleInterop": true,
