@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import { Collection } from "discord.js"
 import type { Client } from "src/types/Client"
 import { CacheCollectionKeys } from "src/types/Collection"
+import type { CommandModule } from "src/types/command/Command"
 
 /**
  * Manages the command collection for the bot.
@@ -12,8 +13,8 @@ import { CacheCollectionKeys } from "src/types/Collection"
  */
 const CommandManager = (bot: Client) => {
   bot.interactions = new Collection<string, unknown>()
-  bot.commands = new Collection<string, unknown>()
-  bot.aliases = new Collection<string, unknown>()
+  bot.commands = new Collection<string, CommandModule>()
+  bot.aliases = new Collection<string, string>()
 
   // Enables common js method of pathing
   const __filename = fileURLToPath(import.meta.url)
@@ -36,12 +37,14 @@ const CommandManager = (bot: Client) => {
           return console.log(`[LOGS][Bot] Couldn't find text.${folder} commands!`)
 
         commandFiles.forEach((file) => {
-          import(`${__dirname}/../commands/text/${folder}/${file}`).then((pulledFile) => {
-            bot.commands.set(pulledFile.config.name, pulledFile)
-            pulledFile.config.aliases.forEach((alias: string) => {
-              bot.aliases.set(alias, pulledFile.config.name)
-            })
-          })
+          import(`${__dirname}/../commands/text/${folder}/${file}`).then(
+            (pulledFile: CommandModule) => {
+              bot.commands.set(pulledFile.config.name, pulledFile)
+              pulledFile.config.aliases.forEach((alias: string) => {
+                bot.aliases.set(alias, pulledFile.config.name)
+              })
+            },
+          )
         })
       })
     })

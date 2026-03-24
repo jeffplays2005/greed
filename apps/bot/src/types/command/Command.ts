@@ -1,4 +1,4 @@
-import type { Message } from "discord.js"
+import type { ColorResolvable, Message } from "discord.js"
 import type { Client } from "../Client"
 import type { BaseCommandConfig } from "./Config"
 
@@ -45,5 +45,5 @@ export type BaseCommandProps = {
    * The embed color to use
    * @default #2f3136
    */
-  color: string
+  color: ColorResolvable
 }
