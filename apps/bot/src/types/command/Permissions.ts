@@ -1,3 +1,5 @@
+import type { PermissionResolvable } from "discord.js"
+
 /**
  * Base permission set fields
  */
@@ -17,14 +19,12 @@ type BasePermissionSet = {
   supportDisabled?: boolean
   /**
    * If there are any required permissions for the bot.
-   * @remarks TODO
    */
-  requiredPermissions?: string[]
+  requiredPermissions?: PermissionResolvable[]
   /**
    * Any user permissions required.
-   * @remarks TODO
    */
-  userPermissionsRequired?: string[]
+  userPermissionsRequired?: PermissionResolvable[]
 }
 
 /**

@@ -1,5 +1,20 @@
 import type { Message } from "discord.js"
 import type { Client } from "../Client"
+import type { BaseCommandConfig } from "./Config"
+
+/**
+ * The return type of parsed command
+ */
+export type CommandModule = {
+  /**
+   * The {@link BaseCommandConfig} command configuration
+   */
+  config: BaseCommandConfig
+  /**
+   * The callback function to run when the command is executed
+   */
+  run: (props: BaseCommandProps) => Promise<void> | void
+}
 
 /**
  * Base command props

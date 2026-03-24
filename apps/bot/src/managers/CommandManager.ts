@@ -25,7 +25,7 @@ const CommandManager = (bot: Client) => {
     const folders = files.filter((file) => file.split(".").pop() === file)
     // TODO: replace console.log with proper logging later
     if (!folders.length) return console.log("[LOGS][Bot] Couldn't find any command folders!")
-    bot.cache?.set(CacheCollectionKeys.COMMAND_FOLDERS, folders)
+    bot.cache.set(CacheCollectionKeys.COMMAND_FOLDERS, folders)
 
     folders.forEach((folder) => {
       fs.readdir(`${__dirname}/../commands/text/${folder}`, (error, files) => {
@@ -37,9 +37,9 @@ const CommandManager = (bot: Client) => {
 
         commandFiles.forEach((file) => {
           import(`${__dirname}/../commands/text/${folder}/${file}`).then((pulledFile) => {
-            bot.commands?.set(pulledFile.config.name, pulledFile)
+            bot.commands.set(pulledFile.config.name, pulledFile)
             pulledFile.config.aliases.forEach((alias: string) => {
-              bot.aliases?.set(alias, pulledFile.config.name)
+              bot.aliases.set(alias, pulledFile.config.name)
             })
           })
         })
