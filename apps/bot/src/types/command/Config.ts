@@ -24,7 +24,7 @@ export type BaseCommandConfig = {
   /**
    * A list of aliases
    */
-  aliases: string[]
+  aliases?: string[]
   /**
    * The cooldown in seconds for this command, use 0 for no cooldown
    * @example 1
