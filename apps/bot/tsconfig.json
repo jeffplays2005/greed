@@ -4,13 +4,15 @@
     "rootDir": ".",
     "outDir": "./dist",
     "declaration": true,
-    "noEmit": true,
     "declarationDir": "./dist/types",
-    "baseUrl": ".",
-    "paths": {},
+    "baseUrl": "./src",
+    "paths": {
+      "src/*": ["./*"]
+    },
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "preserveSymlinks": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
