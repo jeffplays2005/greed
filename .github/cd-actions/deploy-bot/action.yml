@@ -35,6 +35,8 @@ runs:
       shell: bash
       run: |
         mkdir -p app
+        mkdir -p app/apps
+        mkdir -p app/apps/bot
         cp ./package.json app/package.json
         cp ./pnpm-lock.yaml app/pnpm-lock.yaml
         cp ./.nvmrc app/.nvmrc
