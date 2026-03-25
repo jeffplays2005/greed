@@ -38,12 +38,9 @@ runs:
         mkdir -p app/apps
         mkdir -p app/apps/bot
         cp ./package.json app/package.json
-        cp ./pnpm-lock.yaml app/pnpm-lock.yaml
         cp ./bun.lock app/bun.lock
-        cp ./.nvmrc app/.nvmrc
         cp ./Dockerfile app/Dockerfile
         cp ./.dockerignore app/.dockerignore
-        cp ./pnpm-workspace.yaml app/pnpm-workspace.yaml
         cp ./docker-compose.yml app/docker-compose.yml
         cp ./tsconfig.json app/tsconfig.json
         cp -r ./apps/bot/. app/apps/bot
