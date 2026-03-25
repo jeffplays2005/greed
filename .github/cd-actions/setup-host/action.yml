@@ -41,6 +41,9 @@ runs:
           sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
           sudo chmod a+r /etc/apt/keyrings/docker.asc
 
+          echo "Installing rsync"
+          sudo apt install rsync
+
           # Add the repository to Apt sources:
           sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
           Types: deb
@@ -53,6 +56,12 @@ runs:
           sudo apt install -y docker.io docker-compose-plugin docker-buildx-plugin
           sudo usermod -aG docker $USER
           newgrp docker
+
+          BUILDX_VERSION=$(curl -s https://api.github.com/repos/docker/buildx/releases/latest | grep tag_name | cut -d '"' -f 4)
+          mkdir -p .docker
+          mkdir -p .docker/cli-plugins
+          curl -L "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-amd64" -o ~/.docker/cli-plugins/docker-buildx
+          chmod +x ~/.docker/cli-plugins/docker-buildx
 
     - name: Install required dependencies for ubuntu
       uses: appleboy/ssh-action@v1
