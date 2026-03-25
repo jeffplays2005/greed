@@ -42,6 +42,7 @@ runs:
         cp ./.nvmrc app/.nvmrc
         cp ./.dockerignore app/.dockerignore
         cp ./pnpm-workspace.yaml app/pnpm-workspace.yaml
+        cp ./docker-compose.yml app/docker-compose.yml
         cp ./tsconfig.json app/tsconfig.json
         cp -r ./apps/bot/. app/apps/bot
 
