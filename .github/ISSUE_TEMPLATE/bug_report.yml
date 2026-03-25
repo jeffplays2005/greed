@@ -1,18 +1,11 @@
 name: "Bug report"
 description: "Report a reproducible bug in the Discord bot. Provide steps, expected vs actual behavior, and any relevant logs or attachments."
-title: "Bug: ${{ inputs.title }}"
+title: "[Bug] "
 labels:
   - "bug"
   - "needs-triage"
 
 body:
-  - type: input
-    id: title
-    attributes:
-      label: "Title"
-      description: "A brief title for this command request."
-      placeholder: "e.g., Add ban command"
-
   - type: textarea
     id: description
     attributes:
@@ -48,19 +41,6 @@ body:
       placeholder: "Error: Cannot read property 'x' of undefined\n at ... "
     validations:
       required: true
-
-  - type: dropdown
-    id: severity
-    attributes:
-      label: "Severity"
-      description: "How severe is the bug?"
-      options:
-        - label: "Low"
-          value: "low"
-        - label: "Medium"
-          value: "medium"
-        - label: "High"
-          value: "high"
 
   - type: markdown
     attributes:
