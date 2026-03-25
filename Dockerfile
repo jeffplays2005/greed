@@ -1,10 +1,9 @@
-FROM node:22.18.0-alpine
+FROM node:22.18.0-alpine AS runner
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_ENV=production
 
-FROM base AS runner
 WORKDIR /app
 RUN corepack enable
 
