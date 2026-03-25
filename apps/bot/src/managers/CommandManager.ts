@@ -34,10 +34,14 @@ const CommandManager = (bot: Client) => {
       fs.readdir(`${__dirname}/../commands/text/${folder}`, (error, files) => {
         if (error) console.log(error)
 
-        // Store the files and folder into the command mapping for help command
-        categoryCommandMapping.set(folder, files)
-
         const commandFiles = files.filter((file) => file.split(".").pop() === "ts")
+
+        // Store the files and folder into the command mapping for help command
+        categoryCommandMapping.set(
+          folder,
+          commandFiles.map((file) => file.split(".")[0]),
+        )
+
         if (!commandFiles.length)
           return console.log(`[LOGS][Bot] Couldn't find text.${folder} commands!`)
 
