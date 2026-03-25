@@ -1,4 +1,4 @@
-FROM node:22.18.0-alpine AS base
+FROM node:22.18.0-alpine
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -9,7 +9,8 @@ WORKDIR /app
 RUN corepack enable
 
 # Stage 0: Install bun runtime
-RUN pnpm i -g bun
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:$PATH"
 
 # Stage 1: Install prod deps
 COPY --link package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
