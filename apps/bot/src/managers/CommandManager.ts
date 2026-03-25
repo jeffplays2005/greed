@@ -28,9 +28,14 @@ const CommandManager = (bot: Client) => {
     if (!folders.length) return console.log("[LOGS][Bot] Couldn't find any command folders!")
     bot.cache.set(CacheCollectionKeys.COMMAND_FOLDERS, folders)
 
+    const categoryCommandMapping = new Map<string, string[]>()
+
     folders.forEach((folder) => {
       fs.readdir(`${__dirname}/../commands/text/${folder}`, (error, files) => {
         if (error) console.log(error)
+
+        // Store the files and folder into the command mapping for help command
+        categoryCommandMapping.set(folder, files)
 
         const commandFiles = files.filter((file) => file.split(".").pop() === "ts")
         if (!commandFiles.length)
@@ -48,6 +53,8 @@ const CommandManager = (bot: Client) => {
         })
       })
     })
+
+    bot.cache.set(CacheCollectionKeys.FOLDER_MAPPING, categoryCommandMapping)
   })
 }
 

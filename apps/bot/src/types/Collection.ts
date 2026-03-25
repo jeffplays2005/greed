@@ -3,4 +3,5 @@
  */
 export enum CacheCollectionKeys {
   COMMAND_FOLDERS = "command-folders",
+  FOLDER_MAPPING = "folder-mappings",
 }
