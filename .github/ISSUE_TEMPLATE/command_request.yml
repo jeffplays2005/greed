@@ -20,8 +20,8 @@ body:
       label: "Command name"
       description: "Name of the command (e.g., `ban`, `ping`, `my-cmd`). Use the actual name you'd like in the bot."
       placeholder: "example"
-      validations:
-        required: true
+    validations:
+      required: true
 
   - type: textarea
     id: description
@@ -29,8 +29,8 @@ body:
       label: "Description"
       description: "Summary of what the command does or the updates you'd like and why."
       placeholder: "I need a ban command for moderation purposes..."
-      validations:
-        required: true
+    validations:
+      required: true
 
   - type: textarea
     id: usage
@@ -38,8 +38,8 @@ body:
       label: "Usage examples"
       description: "How users will use the command. Include arguments and options. Example: `,ban <user> [reason]`."
       placeholder: "e.g., ,ban @user Spamming"
-      validations:
-        required: true
+    validations:
+      required: true
 
   - type: input
     id: aliases
