@@ -1,0 +1,10 @@
+services:
+  bot:
+    container_name: greedbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+
+volumes:
+  node_modules:
