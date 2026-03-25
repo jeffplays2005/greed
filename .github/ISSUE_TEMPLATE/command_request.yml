@@ -1,6 +1,6 @@
 name: "Discord command request"
 description: "Request a new Discord bot command or changes to an existing command. Provide details to help maintainers implement and test the command."
-title: "[Commands] ${{ inputs.title }}"
+title: "[Commands] "
 labels:
   - "command"
   - "bot"
@@ -8,17 +8,10 @@ labels:
 
 body:
   - type: input
-    id: title
-    attributes:
-      label: "Title"
-      description: "A brief title for this command request."
-      placeholder: "e.g., Add ban command"
-
-  - type: input
     id: command_name
     attributes:
       label: "Command name"
-      description: "Name of the command (e.g., `ban`, `ping`, `my-cmd`). Use the actual name you'd like in the bot."
+      description: "Name of the command (e.g. `ban`, `ping`, `my-cmd`). Use the actual name you'd like in the bot."
       placeholder: "example"
     validations:
       required: true
@@ -36,7 +29,7 @@ body:
     id: usage
     attributes:
       label: "Usage examples"
-      description: "How users will use the command. Include arguments and options. Example: `,ban <user> [reason]`."
+      description: "How users will use the command. Include arguments and options. Example: `,ban <user> [reason]`. Make sure to include arguements and flags (if required) such as --user <id> (required), --reason <text> (optional)"
       placeholder: "e.g., ,ban @user Spamming"
     validations:
       required: true
@@ -54,40 +47,6 @@ body:
       label: "Required permissions / roles"
       description: "Which Discord permissions or roles should be required to use this command (optional). Example: `MANAGE_MESSAGES` or `Moderator role ID`."
       placeholder: "e.g., MANAGE_MESSAGES or Moderator"
-
-  - type: textarea
-    id: arguments
-    attributes:
-      label: "Arguments and flags"
-      description: "Describe command arguments and flags. Include types and whether required."
-      placeholder: "--user <id> (required), --reason <text> (optional)"
-
-  - type: textarea
-    id: acceptance_criteria
-    attributes:
-      label: "Acceptance criteria"
-      description: "What must be true for this request to be considered done (tests, behavior, permissions)."
-      placeholder: "Bot replies with ...; command usable only by ...; unit tests added..."
-
-  - type: dropdown
-    id: priority
-    attributes:
-      label: "Priority"
-      options:
-        - label: "Low"
-          value: "low"
-        - label: "Medium"
-          value: "medium"
-        - label: "High"
-          value: "high"
-      description: "Requester-assigned priority to help triage."
-
-  - type: textarea
-    id: implementation_notes
-    attributes:
-      label: "Implementation notes (optional)"
-      description: "Any design decisions, dependencies, or related commands. Useful pointers for the implementer."
-      placeholder: "Consider reusing existing permission checks from `moderation` commands."
 
   - type: markdown
     attributes:
