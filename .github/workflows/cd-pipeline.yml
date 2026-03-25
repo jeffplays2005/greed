@@ -1,0 +1,71 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        type: environment
+        required: true
+      workflow:
+        description: 'Workflow type'
+        type: choice
+        options:
+          - deploy-bot
+          - setup-host
+        required: true
+      rebuild:
+        description: 'Whether to rebuild the containers by stopping them first'
+        type: boolean
+        default: false
+        required: false
+
+jobs:
+  deploy-bot:
+    name: Deploy bot
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.workflow == 'deploy-bot'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment  || 'production' }}
+      url: ${{ vars.DEPLOYMENT_URL }}
+    concurrency:
+      group: deploy-${{ github.event.inputs.environment  || 'production' }}-bot
+      cancel-in-progress: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Bot Deployment Composite Action
+        uses: ./.github/cd-actions/deploy-bot/
+        with:
+          rebuild: ${{ github.event.inputs.rebuild || 'false' }}
+          # server secrets
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          # bot secrets
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          DB_URL: ${{ secrets.DB_URL }}
+
+  setup-host:
+    name: Setup Host
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.workflow == 'setup-host'
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Host Setup Composite Action
+        uses: ./.github/cd-actions/setup-host/
+        with:
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}

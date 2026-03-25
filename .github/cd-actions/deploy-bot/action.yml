@@ -1,0 +1,84 @@
+name: "Deploy Bot"
+description: Deploys the bot
+
+inputs:
+  rebuild:
+    description: Whether to rebuild the containers by stopping them first.
+    required: true
+    default: 'false'
+  # Host secrets
+  SERVER_USERNAME:
+    description: The username to use for authentication.
+    required: true
+  SERVER_HOST:
+    description: The hostname or IP address of the server.
+    required: true
+  SERVER_SSH_KEY:
+    description: The SSH key to use for authentication.
+    required: true
+  # Deployment secrets
+  BOT_TOKEN:
+    description: The bot token to use for authentication.
+    required: true
+  DB_URL:
+    description: The database URL to use for authentication.
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Enable Corepack
+      shell: bash
+      run: corepack enable
+
+    - name: Prepare directory structure for deployment
+      shell: bash
+      run: |
+        mkdir -p app
+        cp ./package.json app/package.json
+        cp ./pnpm-lock.yaml app/pnpm-lock.yaml
+        cp ./.nvmrc app/.nvmrc
+        cp ./.dockerignore app/.dockerignore
+        cp ./pnpm-workspace.yaml app/pnpm-workspace.yaml
+        cp ./tsconfig.json app/tsconfig.json
+        cp -r ./apps/bot/. app/apps/bot
+
+    - name: Upload combined directory to E2
+      uses: burnett01/rsync-deployments@8.0.4
+      with:
+        switches: -avz --delete --exclude='node_modules/' --exclude='src/'
+        path: ./app
+        remote_path: ~/
+        remote_host: ${{ inputs.SERVER_HOST }}
+        remote_user: ${{ inputs.SERVER_USERNAME }}
+        remote_key: ${{ inputs.SERVER_SSH_KEY }}
+
+    - name: Connect via SSH to host, store secrets and deploy
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ inputs.SERVER_HOST }}
+        username: ${{ inputs.SERVER_USERNAME }}
+        key: ${{ inputs.SERVER_SSH_KEY }}
+        port: 22
+        script: |
+          #!/usr/bin/env bash
+          set -e
+
+          cd ~/app
+
+          echo "storing secrets"
+          echo "BOT_TOKEN=${{ inputs.BOT_TOKEN }}" >> apps/bot/.env
+          echo "DB_URL=${{ inputs.DB_URL }}" >> apps/bot/.env
+
+          if [ "${{ inputs.rebuild }}" = "true" ]; then
+            echo "Stopping containers"
+            docker compose down
+          fi
+
+          echo "Rebuilding and starting containers"
+          export DOCKER_CLIENT_TIMEOUT=120
+          export COMPOSE_HTTP_TIMEOUT=120
+          DOCKER_BUILDKIT=1 docker compose up -d --build --no-recreate
+
+          echo "Removing old images after build"
+          docker system prune -f
