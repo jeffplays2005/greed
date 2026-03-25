@@ -52,6 +52,7 @@ jobs:
           # bot secrets
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           DB_URL: ${{ secrets.DB_URL }}
+          SERVER_OS: ${{ vars.SERVER_OS }}
 
   setup-host:
     name: Setup Host
