@@ -1,0 +1,96 @@
+name: "Discord command request"
+description: "Request a new Discord bot command or changes to an existing command. Provide details to help maintainers implement and test the command."
+title: "[Commands] ${{ inputs.title }}"
+labels:
+  - "command"
+  - "bot"
+  - "needs-triage"
+
+body:
+  - type: input
+    id: title
+    attributes:
+      label: "Title"
+      description: "A brief title for this command request."
+      placeholder: "e.g., Add ban command"
+
+  - type: input
+    id: command_name
+    attributes:
+      label: "Command name"
+      description: "Name of the command (e.g., `ban`, `ping`, `my-cmd`). Use the actual name you'd like in the bot."
+      placeholder: "example"
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Summary of what the command does or the updates you'd like and why."
+      placeholder: "I need a ban command for moderation purposes..."
+      required: true
+
+  - type: textarea
+    id: usage
+    attributes:
+      label: "Usage examples"
+      description: "How users will use the command. Include arguments and options. Example: `,ban <user> [reason]`."
+      placeholder: "e.g., ,ban @user Spamming"
+      required: true
+
+  - type: input
+    id: aliases
+    attributes:
+      label: "Aliases"
+      description: "Comma-separated list of aliases (optional)."
+      placeholder: "alias1, alias2"
+
+  - type: input
+    id: required_permissions
+    attributes:
+      label: "Required permissions / roles"
+      description: "Which Discord permissions or roles should be required to use this command (optional). Example: `MANAGE_MESSAGES` or `Moderator role ID`."
+      placeholder: "e.g., MANAGE_MESSAGES or Moderator"
+
+  - type: textarea
+    id: arguments
+    attributes:
+      label: "Arguments and flags"
+      description: "Describe command arguments and flags. Include types and whether required."
+      placeholder: "--user <id> (required), --reason <text> (optional)"
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance criteria"
+      description: "What must be true for this request to be considered done (tests, behavior, permissions)."
+      placeholder: "Bot replies with ...; command usable only by ...; unit tests added..."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      options:
+        - label: "Low"
+          value: "low"
+        - label: "Medium"
+          value: "medium"
+        - label: "High"
+          value: "high"
+      description: "Requester-assigned priority to help triage."
+
+  - type: textarea
+    id: implementation_notes
+    attributes:
+      label: "Implementation notes (optional)"
+      description: "Any design decisions, dependencies, or related commands. Useful pointers for the implementer."
+      placeholder: "Consider reusing existing permission checks from `moderation` commands."
+
+  - type: markdown
+    attributes:
+      value: |
+        After submitting, a maintainer will triage and follow up. For urgent requests, notify maintainers in the dev channel or reference an existing related issue/PR.
+
+        Please also note that issues surrounding the following topics will be closed without discussion:
+
+        - Music - this is because hosting and reliability for music bots are difficult and I do not plan on wasting time around this
