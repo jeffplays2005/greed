@@ -27,11 +27,5 @@
     "node": ">=22",
     "pnpm": "^10.0.0"
   },
-  "workspaces": [
-    "apps/bot",
-    "apps/discord-hono",
-    "packages/payload",
-    "packages/shared"
-  ],
-  "packageManager": "bun@1.3.9"
+  "packageManager": "pnpm@10.33.0"
 }
