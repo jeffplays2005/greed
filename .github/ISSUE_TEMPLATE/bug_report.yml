@@ -19,7 +19,8 @@ body:
       label: "Description"
       description: "Summary of what is broken with the command."
       placeholder: "Bot crashes when I try to ban the developer..."
-      required: true
+      validations:
+        required: true
 
   - type: textarea
     id: steps_to_reproduce
@@ -27,7 +28,8 @@ body:
       label: "Steps to reproduce"
       description: "Step-by-step instructions to reproduce the bug. Include exact commands or interactions."
       placeholder: "1. Do this\n2. Run that\n3. Observe the error"
-      required: true
+      validations:
+        required: true
 
   - type: textarea
     id: expected_behavior
@@ -35,7 +37,8 @@ body:
       label: "Expected behavior"
       description: "What you expected to happen."
       placeholder: "The bot should reply with usage instructions."
-      required: true
+      validations:
+        required: true
 
   - type: textarea
     id: actual_behavior
@@ -43,13 +46,8 @@ body:
       label: "Actual behavior"
       description: "What actually happened (error messages, stack traces, etc.)."
       placeholder: "Error: Cannot read property 'x' of undefined\n at ... "
-      required: true
-
-  - type: attachments
-    id: attachments
-    attributes:
-      label: "Screenshots / files"
-      description: "Attach screenshots, recordings, or files that help explain the issue."
+      validations:
+        required: true
 
   - type: dropdown
     id: severity
