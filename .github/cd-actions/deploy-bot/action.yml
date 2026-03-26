@@ -35,18 +35,20 @@ runs:
       shell: bash
       run: |
         mkdir -p app
+        mkdir -p app/apps
+        mkdir -p app/apps/bot
         cp ./package.json app/package.json
-        cp ./pnpm-lock.yaml app/pnpm-lock.yaml
-        cp ./.nvmrc app/.nvmrc
+        cp ./bun.lock app/bun.lock
+        cp ./Dockerfile app/Dockerfile
         cp ./.dockerignore app/.dockerignore
-        cp ./pnpm-workspace.yaml app/pnpm-workspace.yaml
+        cp ./docker-compose.yml app/docker-compose.yml
         cp ./tsconfig.json app/tsconfig.json
         cp -r ./apps/bot/. app/apps/bot
 
     - name: Upload combined directory to E2
       uses: burnett01/rsync-deployments@8.0.4
       with:
-        switches: -avz --delete --exclude='node_modules/' --exclude='src/'
+        switches: -avz --delete --exclude='node_modules/'
         path: ./app
         remote_path: ~/
         remote_host: ${{ inputs.SERVER_HOST }}
@@ -78,7 +80,7 @@ runs:
           echo "Rebuilding and starting containers"
           export DOCKER_CLIENT_TIMEOUT=120
           export COMPOSE_HTTP_TIMEOUT=120
-          DOCKER_BUILDKIT=1 docker compose up -d --build --no-recreate
+          DOCKER_BUILDKIT=1 docker compose up -d --build
 
           echo "Removing old images after build"
           docker system prune -f
