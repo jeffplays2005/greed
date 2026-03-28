@@ -1,4 +1,6 @@
 import type { Message, PermissionResolvable } from "discord.js"
+import type { Client } from "src/types/Client"
+import { InternalPermissions } from "src/types/Config"
 
 /**
  * Checks if the bot has all required permissions
@@ -51,5 +53,32 @@ export function checkMemberPermissions(
   const member = message.member
   return requiredPermissions.every((perm) => {
     return member.permissions.has(perm)
+  })
+}
+
+/**
+ * Checks if the user has all required internal permissions
+ *
+ * @param message The message that was sent requesting this permission check
+ * @param internalPermissions The internal permissions list to check
+ * @param bot The client instance
+ * @returns A boolean value if the permissions are met
+ */
+export function checkInternalPermissions(
+  message: Message,
+  internalPermissions?: InternalPermissions[],
+  bot?: Client,
+): boolean {
+  if (!internalPermissions?.length || !bot) {
+    return true
+  }
+
+  return internalPermissions.every((perm) => {
+    switch (perm) {
+      case InternalPermissions.OWNERS:
+        return (bot.config.users.owners ?? []).includes(message.author.id)
+      default:
+        return false
+    }
   })
 }

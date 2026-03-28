@@ -55,7 +55,6 @@ async function MessageEvent(message: Message, bot: Client) {
         allowedMentions: { repliedUser: false },
       })
     bot.cooldownManager.setCooldown(message.author.id, config.name, config.cooldown)
-    console.log(bot.cooldowns)
 
     await command.run({
       message,

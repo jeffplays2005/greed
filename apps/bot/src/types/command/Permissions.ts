@@ -1,4 +1,5 @@
 import type { PermissionResolvable } from "discord.js"
+import type { InternalPermissions } from "../Config"
 
 /**
  * Base permission set fields
@@ -25,6 +26,10 @@ type BasePermissionSet = {
    * Any user permissions required.
    */
   userPermissionsRequired?: PermissionResolvable[]
+  /**
+   * Any internally defined permissions
+   */
+  internalPermissions?: InternalPermissions[]
 }
 
 /**

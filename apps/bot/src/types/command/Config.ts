@@ -29,7 +29,7 @@ export type BaseCommandConfig = {
    * The cooldown in seconds for this command, use 0 for no cooldown
    * @example 1
    */
-  cooldown: number
+  cooldown?: number
   /**
    * Various permission config options
    */
