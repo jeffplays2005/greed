@@ -55,16 +55,27 @@ async function MessageEvent(message: Message, bot: Client) {
         allowedMentions: { repliedUser: false },
       })
     bot.cooldownManager.setCooldown(message.author.id, config.name, config.cooldown)
-    console.log(bot.cooldowns)
 
-    await command.run({
-      message,
-      bot,
-      args,
-      db: undefined,
-      prefix,
-      color,
-    })
+    const isGuild = config.permissionSet?.guildOnly === true
+    if (isGuild) {
+      await command.run<true>({
+        message: message as Message<true>,
+        bot,
+        args,
+        db: undefined,
+        prefix,
+        color,
+      })
+    } else {
+      await command.run<false>({
+        message: message as Message<false>,
+        bot,
+        args,
+        db: undefined,
+        prefix,
+        color,
+      })
+    }
   } catch (error) {
     console.error(`[ERROR] Command "${config.name}" execution failed:`, error)
     await message

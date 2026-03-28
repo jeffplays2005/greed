@@ -12,18 +12,20 @@ export type CommandModule = {
   config: BaseCommandConfig
   /**
    * The callback function to run when the command is executed
+   * @template IsGuild Whether the command is executed in a guild context. This helps commands that
+   * can safely assume they're within a guild context and not worry about whether they're in a DM.
    */
-  run: (props: BaseCommandProps) => Promise<void> | void
+  run<IsGuild extends boolean = boolean>(props: BaseCommandProps<IsGuild>): Promise<void> | void
 }
 
 /**
  * Base command props
  */
-export type BaseCommandProps = {
+export type BaseCommandProps<IsGuild extends boolean = boolean> = {
   /**
    * The original message to be parsed
    */
-  message: Message
+  message: Message<IsGuild>
   /**
    * The discord client
    */
