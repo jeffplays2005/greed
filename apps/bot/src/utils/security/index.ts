@@ -1,7 +1,7 @@
 import type { Message } from "discord.js"
 import type { Client } from "src/types/Client"
 import type { BaseCommandConfig } from "src/types/command"
-import { checkBotPermissions, checkMemberPermissions } from "./helpers"
+import { checkBotPermissions, checkInternalPermissions, checkMemberPermissions } from "./helpers"
 
 /**
  * Validates all permission constraints for a command
@@ -50,6 +50,14 @@ export function validatePermissions(
   }
   if (permSet?.supportDisabled && inSupportServer) {
     return { valid: false, error: "this command is disabled in the support server!" }
+  }
+
+  // Check internal permissions
+  if (!checkInternalPermissions(message, permSet?.internalPermissions, bot)) {
+    return {
+      valid: false,
+      error: "you don't have the required permissions to use this command!",
+    }
   }
 
   // Check user permissions
