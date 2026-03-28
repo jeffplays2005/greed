@@ -47,6 +47,16 @@ async function MessageEvent(message: Message, bot: Client) {
   }
 
   try {
+    // Check for cooldowns
+    const cd = bot.cooldownManager.isOnCooldown(message.author.id, config.name)
+    if (cd)
+      return message.reply({
+        embeds: [createSimpleEmbed(`you are on cooldown for ${Math.round(cd / 1000)}s.`, color)],
+        allowedMentions: { repliedUser: false },
+      })
+    bot.cooldownManager.setCooldown(message.author.id, config.name, config.cooldown)
+    console.log(bot.cooldowns)
+
     await command.run({
       message,
       bot,

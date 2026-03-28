@@ -41,7 +41,7 @@ export class CooldownHelper {
   public setCooldown(userId: string, command: string, duration = 0): void {
     const key = `${userId}:${command}`
     const now = Date.now()
-    this.cooldowns.set(key, now + duration)
+    this.cooldowns.set(key, now + duration * 1000)
   }
 
   /**
