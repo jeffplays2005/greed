@@ -52,7 +52,10 @@ const CommandManager = (bot: Client) => {
         commandFiles.forEach((file) => {
           import(`${__dirname}/../commands/text/${folder}/${file}`).then(
             (pulledFile: CommandModule) => {
-              bot.commands.set(pulledFile.config.name, pulledFile)
+              bot.commands.set(pulledFile.config.name, {
+                config: pulledFile.config,
+                run: pulledFile.run,
+              })
               pulledFile.config.aliases?.forEach((alias: string) => {
                 bot.aliases.set(alias, pulledFile.config.name)
               })
