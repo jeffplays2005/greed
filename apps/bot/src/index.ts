@@ -1,4 +1,4 @@
-import { Collection, Client as DiscordClient, GatewayIntentBits } from "discord.js"
+import { Collection, Client as DiscordClient, IntentsBitField } from "discord.js"
 import "dotenv/config"
 import { Config } from "./config"
 import CommandManager from "./managers/CommandManager"
@@ -8,10 +8,10 @@ import type { CacheCollectionKeys } from "./types/Collection"
 
 const bot = new DiscordClient({
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.DirectMessages,
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.MessageContent,
+    IntentsBitField.Flags.DirectMessages,
   ],
 }) as Client
 

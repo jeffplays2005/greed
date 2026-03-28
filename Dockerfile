@@ -1,5 +1,7 @@
 FROM oven/bun:1 AS runner
 
+ENV NODE_ENV=production
+
 WORKDIR /app
 
 # Stage 0: Install bun runtime

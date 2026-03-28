@@ -14,14 +14,14 @@
     "format:fix": "biome format --write"
   },
   "dependencies": {
-    "dotenv": "^17.3.1",
-    "turbo": "^2.8.20"
+    "dotenv": "17.3.1",
+    "turbo": "2.8.20"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.2",
-    "@types/node": "^24.3.0",
+    "@biomejs/biome": "2.2.2",
+    "@types/node": "24.3.0",
     "typescript": "5.9.2",
-    "wrangler": "^4.33.1"
+    "wrangler": "4.33.1"
   },
   "engines": {
     "node": ">=22",

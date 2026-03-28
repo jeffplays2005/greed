@@ -1,4 +1,5 @@
-import type { Client as BaseClient, Collection } from "discord.js"
+import type { Client as BaseClient, Collection, User } from "discord.js"
+import type { CooldownHelper } from "src/utils/cooldowns"
 import type { Config } from "../config"
 import type { CacheCollectionKeys } from "./Collection"
 import type { CommandModule } from "./command/Command"
@@ -17,6 +18,10 @@ export type Client<T extends boolean = true> = BaseClient<T> & {
    */
   cache: Collection<CacheCollectionKeys, unknown>
   /**
+   * Cache collection for storing command cooldowns
+   */
+  cooldowns: Collection<`${User["id"]}:${string}`, number>
+  /**
    * The collection for storing text commands
    */
   commands: Collection<string, CommandModule>
@@ -28,4 +33,8 @@ export type Client<T extends boolean = true> = BaseClient<T> & {
    * The collection for storing interactions
    */
   interactions: Collection<string, unknown>
+  /**
+   * The cooldown helper
+   */
+  cooldownManager: CooldownHelper
 }

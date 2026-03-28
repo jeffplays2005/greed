@@ -6,10 +6,10 @@ import { validatePermissions } from "src/utils/security"
 /**
  * Handles message events and parses/executes text commands
  */
-async function MessageEvent(message: Message, bot: Client): Promise<void> {
+async function MessageEvent(message: Message, bot: Client) {
   if (message.author.bot) return
 
-  const prefix = bot.config.prefix
+  const prefix = process.env.NODE_ENV === "staging" ? bot.config.devPrefix : bot.config.prefix
   const color = bot.config.defaultHexColor as ColorResolvable
 
   // Only process messages with the prefix
@@ -47,6 +47,16 @@ async function MessageEvent(message: Message, bot: Client): Promise<void> {
   }
 
   try {
+    // Check for cooldowns
+    const cd = bot.cooldownManager.isOnCooldown(message.author.id, config.name)
+    if (cd)
+      return message.reply({
+        embeds: [createSimpleEmbed(`you are on cooldown for ${Math.round(cd / 1000)}s.`, color)],
+        allowedMentions: { repliedUser: false },
+      })
+    bot.cooldownManager.setCooldown(message.author.id, config.name, config.cooldown)
+    console.log(bot.cooldowns)
+
     await command.run({
       message,
       bot,
