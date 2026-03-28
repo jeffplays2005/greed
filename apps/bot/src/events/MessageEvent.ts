@@ -6,10 +6,10 @@ import { validatePermissions } from "src/utils/security"
 /**
  * Handles message events and parses/executes text commands
  */
-async function MessageEvent(message: Message, bot: Client): Promise<void> {
+async function MessageEvent(message: Message, bot: Client) {
   if (message.author.bot) return
 
-  const prefix = bot.config.prefix
+  const prefix = process.env.NODE_ENV === "staging" ? bot.config.devPrefix : bot.config.prefix
   const color = bot.config.defaultHexColor as ColorResolvable
 
   // Only process messages with the prefix

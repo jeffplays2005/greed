@@ -1,5 +1,6 @@
 const Config = {
   prefix: ",",
+  devPrefix: ",,",
   defaultHexColor: "#2f3136",
   users: {
     dev: ["543185949803151370"],
