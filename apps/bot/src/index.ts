@@ -1,4 +1,4 @@
-import { Collection, Client as DiscordClient, IntentsBitField, type User } from "discord.js"
+import { Collection, Client as DiscordClient, IntentsBitField } from "discord.js"
 import "dotenv/config"
 import { Config } from "./config"
 import CommandManager from "./managers/CommandManager"
@@ -16,7 +16,6 @@ const bot = new DiscordClient({
 }) as Client
 
 bot.cache = new Collection<CacheCollectionKeys, unknown>()
-bot.cooldowns = new Collection<`${User["id"]}:${string}`, number>()
 bot.config = Config
 
 EventManager(bot)

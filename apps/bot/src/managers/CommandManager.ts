@@ -1,10 +1,11 @@
 import fs from "node:fs"
 import { dirname } from "node:path"
 import { fileURLToPath } from "node:url"
-import { Collection } from "discord.js"
+import { Collection, type User } from "discord.js"
 import type { Client } from "src/types/Client"
 import { CacheCollectionKeys } from "src/types/Collection"
 import type { CommandModule } from "src/types/command/Command"
+import { CooldownHelper } from "src/utils/cooldowns"
 
 /**
  * Manages the command collection for the bot.
@@ -15,6 +16,9 @@ const CommandManager = (bot: Client) => {
   bot.interactions = new Collection<string, unknown>()
   bot.commands = new Collection<string, CommandModule>()
   bot.aliases = new Collection<string, string>()
+  // Cooldowns
+  bot.cooldowns = new Collection<`${User["id"]}:${string}`, number>()
+  bot.cooldownManager = new CooldownHelper(bot.cooldowns)
 
   // Enables common js method of pathing
   const __filename = fileURLToPath(import.meta.url)
