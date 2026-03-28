@@ -18,7 +18,7 @@ export const run = ({ message, args }: BaseCommandProps<true>) => {
   const amount = Math.max(1, Math.min(100, parsedCount))
 
   if (message.channel.isTextBased() && !message.channel.isDMBased()) {
-    await message.channel.messages.fetch({ limit: 100, cache: false }).then((messages) => {
+    message.channel.messages.fetch({ limit: 100, cache: false }).then((messages) => {
       const userMessages = messages
         .filter(
           (m: Message) =>
