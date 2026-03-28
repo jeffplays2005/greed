@@ -14,13 +14,12 @@ export class CooldownHelper {
    * Checks if a user is on cooldown for a specific command and returns the cooldown in ms.
    * Returns 0 if not on cooldown or cooldown has expired.
    *
-   * @param cooldowns The Discord {@link Collection} storing cooldowns.
    * @param userId The ID of the {@link User} to check.
    * @param command The name of the command to check cooldown for.
    * @returns The remaining cooldown time in milliseconds, or 0 if not on cooldown or cooldown has expired.
    */
   public isOnCooldown(userId: string, command: string): number {
-    const key = `${userId}:${command}`
+    const key: `${string}:${string}` = `${userId}:${command}`
     const entry = this.cooldowns.get(key)
     if (!entry) return 0
 
@@ -38,11 +37,11 @@ export class CooldownHelper {
    *
    * @param userId The ID of the {@link User} to set cooldown for.
    * @param command The name of the command to set cooldown for.
-   * @param duration The duration of the cooldown in milliseconds.
+   * @param duration The duration of the cooldown in seconds.
    */
   public setCooldown(userId: string, command: string, duration = 0): void {
     if (!duration) return
-    const key = `${userId}:${command}`
+    const key: `${string}:${string}` = `${userId}:${command}`
     const now = Date.now()
     this.cooldowns.set(key, now + duration * 1000)
   }
@@ -53,7 +52,7 @@ export class CooldownHelper {
   private cleanup(): void {
     const now = Date.now()
     for (const [key, entry] of this.cooldowns.entries()) {
-      if (now >= entry.expiresAt) {
+      if (now >= entry) {
         this.cooldowns.delete(key)
       }
     }
