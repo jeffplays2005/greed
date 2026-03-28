@@ -1,4 +1,4 @@
-import type { Client as BaseClient, Collection } from "discord.js"
+import type { Client as BaseClient, Collection, User } from "discord.js"
 import type { Config } from "../config"
 import type { CacheCollectionKeys } from "./Collection"
 import type { CommandModule } from "./command/Command"
@@ -16,6 +16,10 @@ export type Client<T extends boolean = true> = BaseClient<T> & {
    * TODO: properly type and use interfaces for return items
    */
   cache: Collection<CacheCollectionKeys, unknown>
+  /**
+   * Cache collection for storing command cooldowns
+   */
+  cooldowns: Collection<`${User["id"]}:${string}`, number>
   /**
    * The collection for storing text commands
    */
