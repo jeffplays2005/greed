@@ -59,6 +59,7 @@ async function MessageEvent(message: Message, bot: Client) {
     await command.run({
       message,
       bot,
+      command: commandName,
       args,
       db: undefined,
       prefix,
