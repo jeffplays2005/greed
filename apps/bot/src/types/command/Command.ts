@@ -31,6 +31,11 @@ export type BaseCommandProps<IsGuild extends boolean = boolean> = {
    */
   bot: Client
   /**
+   * The command that was executed
+   * @example ping
+   */
+  command: string
+  /**
    * A string list of arguments passed through during message event
    */
   args: string[]
