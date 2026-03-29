@@ -11,11 +11,11 @@ export const run = ({ message, args }: BaseCommandProps<true>) => {
   const purgeCountArg = checkForKeyword ? args[1] : hasFirstArg ? args[0] : undefined
 
   const DEFAULT_PURGE_COUNT = 50
-  let parsedCount = Number(purgeCountArg)
+  let parsedCount = Number(purgeCountArg) + 1
   if (!Number.isFinite(parsedCount) || !Number.isInteger(parsedCount)) {
     parsedCount = DEFAULT_PURGE_COUNT
   }
-  const amount = Math.max(1, Math.min(100, parsedCount))
+  const amount = Math.max(2, Math.min(100, parsedCount))
 
   if (message.channel.isTextBased() && !message.channel.isDMBased()) {
     message.channel.messages.fetch({ limit: 100, cache: false }).then((messages) => {
