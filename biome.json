@@ -4,6 +4,9 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
+      "!**/.next",
+      "!**/.turbo",
+      "!**/coverage",
       "!bun.lock",
       "!packages/shared/src/payload-types.ts",
       "!packages/payload/src/app/(payload)/layout.tsx",
