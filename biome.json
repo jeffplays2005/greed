@@ -2,7 +2,13 @@
   "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!bun.lock", "!packages/payload/src/payload-types.ts"]
+    "includes": [
+      "**",
+      "!bun.lock",
+      "!packages/shared/src/payload-types.ts",
+      "!packages/payload/src/app/(payload)/layout.tsx",
+      "!packages/payload/src/app/(payload)/admin/*"
+    ]
   },
   "formatter": {
     "attributePosition": "auto",
