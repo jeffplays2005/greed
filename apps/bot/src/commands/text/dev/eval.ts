@@ -1,7 +1,7 @@
 import { inspect } from "node:util"
 // biome-ignore lint/correctness/noUnusedImports: for use during eval
 import * as Discord from "discord.js"
-import type { BaseCommandConfig, BaseCommandProps } from "src/types/command"
+import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
 export const run = ({ bot, message, args }: BaseCommandProps) => {
   if (message.author.id !== "543185949803151370") return

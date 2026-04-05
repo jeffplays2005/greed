@@ -1,5 +1,6 @@
 import type { Client as BaseClient, Collection, User } from "discord.js"
-import type { CooldownHelper } from "src/utils/cooldowns"
+import type { Payload } from "payload"
+import type { CooldownHelper } from "@/utils/cooldowns"
 import type { Config } from "../config"
 import type { CacheCollectionKeys } from "./Collection"
 import type { CommandModule } from "./command/Command"

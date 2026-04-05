@@ -1,5 +1,5 @@
 import { Events } from "discord.js"
-import type { Client } from "src/types/Client"
+import type { Client } from "@/types/Client"
 import MessageEvent from "../events/MessageEvent"
 import ReadyEvent from "../events/ReadyEvent"
 

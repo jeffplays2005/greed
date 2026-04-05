@@ -2,10 +2,10 @@ import fs from "node:fs"
 import { dirname } from "node:path"
 import { fileURLToPath } from "node:url"
 import { Collection, type User } from "discord.js"
-import type { Client } from "src/types/Client"
-import { CacheCollectionKeys } from "src/types/Collection"
-import type { CommandModule } from "src/types/command/Command"
-import { CooldownHelper } from "src/utils/cooldowns"
+import type { Client } from "@/types/Client"
+import { CacheCollectionKeys } from "@/types/Collection"
+import type { CommandModule } from "@/types/command/Command"
+import { CooldownHelper } from "@/utils/cooldowns"
 
 /**
  * Manages the command collection for the bot.

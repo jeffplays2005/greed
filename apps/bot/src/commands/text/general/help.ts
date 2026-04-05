@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js"
-import { CacheCollectionKeys } from "src/types/Collection"
-import type { BaseCommandConfig, BaseCommandProps } from "src/types/command"
+import { CacheCollectionKeys } from "@/types/Collection"
+import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
 export const run = async ({ message, bot, color, args, prefix }: BaseCommandProps) => {
   const categoryMappings = bot.cache.get(CacheCollectionKeys.FOLDER_MAPPING) as Map<

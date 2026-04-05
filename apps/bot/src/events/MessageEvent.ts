@@ -1,7 +1,7 @@
 import type { ColorResolvable, Message } from "discord.js"
-import type { Client } from "src/types/Client"
-import { createSimpleEmbed } from "src/utils/embeds"
-import { validatePermissions } from "src/utils/security"
+import type { Client } from "@/types/Client"
+import { createSimpleEmbed } from "@/utils/embeds"
+import { validatePermissions } from "@/utils/security"
 
 /**
  * Handles message events and parses/executes text commands

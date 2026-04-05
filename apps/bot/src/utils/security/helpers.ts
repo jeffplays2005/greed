@@ -1,6 +1,6 @@
 import type { Message, PermissionResolvable } from "discord.js"
-import type { Client } from "src/types/Client"
-import { InternalPermissions } from "src/types/Config"
+import type { Client } from "@/types/Client"
+import { InternalPermissions } from "@/types/Config"
 
 /**
  * Checks if the bot has all required permissions

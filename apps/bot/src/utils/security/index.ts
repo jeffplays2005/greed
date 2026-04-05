@@ -1,6 +1,6 @@
 import type { Message } from "discord.js"
-import type { Client } from "src/types/Client"
-import type { BaseCommandConfig } from "src/types/command"
+import type { Client } from "@/types/Client"
+import type { BaseCommandConfig } from "@/types/command"
 import { checkBotPermissions, checkInternalPermissions, checkMemberPermissions } from "./helpers"
 
 /**
