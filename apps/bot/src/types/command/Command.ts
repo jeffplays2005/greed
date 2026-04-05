@@ -1,4 +1,5 @@
 import type { ColorResolvable, Message } from "discord.js"
+import type { Payload } from "payload"
 import type { Client } from "../Client"
 import type { BaseCommandConfig } from "./Config"
 
@@ -26,6 +27,10 @@ export type BaseCommandProps<IsGuild extends boolean = boolean> = {
    * The original message to be parsed
    */
   message: Message<IsGuild>
+  /**
+   * The Payload instance
+   */
+  payload: Payload
   /**
    * The discord client
    */

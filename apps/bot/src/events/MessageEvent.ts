@@ -64,6 +64,7 @@ async function MessageEvent(message: Message, bot: Client) {
       db: undefined,
       prefix,
       color,
+      payload: bot.payload,
     })
   } catch (error) {
     console.error(`[ERROR] Command "${config.name}" execution failed:`, error)

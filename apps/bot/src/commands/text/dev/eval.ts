@@ -3,7 +3,8 @@ import { inspect } from "node:util"
 import * as Discord from "discord.js"
 import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
-export const run = ({ bot, message, args }: BaseCommandProps) => {
+// biome-ignore lint/correctness/noUnusedFunctionParameters: need to use during eval
+export const run = ({ bot, message, args, payload }: BaseCommandProps) => {
   if (message.author.id !== "543185949803151370") return
 
   const clean = (toCheck: unknown) => {

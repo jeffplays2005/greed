@@ -12,5 +12,7 @@
     "dotenv": "17.3.1",
     "payload": "3.81.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@repo/payload": "workspace:*"
+  }
 }

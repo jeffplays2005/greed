@@ -14,6 +14,10 @@ export type Client<T extends boolean = true> = BaseClient<T> & {
    */
   config: typeof Config
   /**
+   * The payload client
+   */
+  payload: Payload
+  /**
    * Misc collection used to store metadata, etc.
    * TODO: properly type and use interfaces for return items
    */

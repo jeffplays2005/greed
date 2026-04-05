@@ -1,4 +1,4 @@
-import type { BaseCommandConfig, BaseCommandProps } from "src/types/command"
+import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
 export const run = async ({ message, command }: BaseCommandProps) => {
   const emojiToUse = command === "poop" ? "💩" : "💦"

@@ -6,7 +6,7 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./payload-config": "./src/payload.config.ts"
+    "./config": "./src/payload.config.ts"
   },
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
