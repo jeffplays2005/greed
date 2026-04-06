@@ -20,12 +20,10 @@
       "version": "1.0.0",
       "dependencies": {
         "@payloadcms/db-mongodb": "3.81.0",
+        "@repo/payload": "workspace:*",
         "discord.js": "14.25.1",
         "dotenv": "17.3.1",
         "payload": "3.81.0",
-      },
-      "devDependencies": {
-        "@repo/payload": "workspace:*",
       },
     },
     "apps/discord-hono": {
