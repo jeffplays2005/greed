@@ -9,7 +9,7 @@ import { validatePermissions } from "@/utils/security"
 async function MessageEvent(message: Message, bot: Client) {
   if (message.author.bot) return
 
-  const prefix = process.env.NODE_ENV === "staging" ? bot.config.devPrefix : bot.config.prefix
+  const prefix = process.env.NODE_ENV === "development" ? bot.config.devPrefix : bot.config.prefix
   const color = bot.config.defaultHexColor as ColorResolvable
 
   // Only process messages with the prefix

@@ -20,8 +20,11 @@ inputs:
   BOT_TOKEN:
     description: The bot token to use for authentication.
     required: true
-  DB_URL:
+  DATABASE_URI:
     description: The database URL to use for authentication.
+    required: true
+  PAYLOAD_SECRET:
+    description: The secret used to sign secrets in Payload.
     required: true
 
 runs:
@@ -70,7 +73,8 @@ runs:
 
           echo "storing secrets"
           echo "BOT_TOKEN=${{ inputs.BOT_TOKEN }}" >> apps/bot/.env
-          echo "DB_URL=${{ inputs.DB_URL }}" >> apps/bot/.env
+          echo "DATABASE_URI=${{ inputs.DATABASE_URI }}" >> apps/bot/.env
+          echo "PAYLOAD_SECRET=${{ inputs.PAYLOAD_SECRET }}" >> apps/bot/.env
 
           if [ "${{ inputs.rebuild }}" = "true" ]; then
             echo "Stopping containers"
