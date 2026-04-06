@@ -1,7 +1,7 @@
 import type { ColorResolvable, Message } from "discord.js"
-import type { Client } from "src/types/Client"
-import { createSimpleEmbed } from "src/utils/embeds"
-import { validatePermissions } from "src/utils/security"
+import type { Client } from "@/types/Client"
+import { createSimpleEmbed } from "@/utils/embeds"
+import { validatePermissions } from "@/utils/security"
 
 /**
  * Handles message events and parses/executes text commands
@@ -9,7 +9,7 @@ import { validatePermissions } from "src/utils/security"
 async function MessageEvent(message: Message, bot: Client) {
   if (message.author.bot) return
 
-  const prefix = process.env.NODE_ENV === "staging" ? bot.config.devPrefix : bot.config.prefix
+  const prefix = process.env.NODE_ENV === "development" ? bot.config.devPrefix : bot.config.prefix
   const color = bot.config.defaultHexColor as ColorResolvable
 
   // Only process messages with the prefix
@@ -64,6 +64,7 @@ async function MessageEvent(message: Message, bot: Client) {
       db: undefined,
       prefix,
       color,
+      payload: bot.payload,
     })
   } catch (error) {
     console.error(`[ERROR] Command "${config.name}" execution failed:`, error)

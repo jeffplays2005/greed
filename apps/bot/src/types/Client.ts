@@ -1,5 +1,6 @@
 import type { Client as BaseClient, Collection, User } from "discord.js"
-import type { CooldownHelper } from "src/utils/cooldowns"
+import type { Payload } from "payload"
+import type { CooldownHelper } from "@/utils/cooldowns"
 import type { Config } from "../config"
 import type { CacheCollectionKeys } from "./Collection"
 import type { CommandModule } from "./command/Command"
@@ -12,6 +13,10 @@ export type Client<T extends boolean = true> = BaseClient<T> & {
    * The bots config
    */
   config: typeof Config
+  /**
+   * The payload client
+   */
+  payload: Payload
   /**
    * Misc collection used to store metadata, etc.
    * TODO: properly type and use interfaces for return items

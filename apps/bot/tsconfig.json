@@ -3,13 +3,11 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist",
-    "declaration": true,
-    "declarationDir": "./dist/types",
     "baseUrl": "./src",
     "paths": {
-      "src/*": ["./*"]
+      "@/*": ["*"]
     },
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "preserveSymlinks": false,
     "esModuleInterop": true,

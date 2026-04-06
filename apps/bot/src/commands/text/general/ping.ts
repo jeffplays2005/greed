@@ -1,5 +1,5 @@
-import type { BaseCommandConfig, BaseCommandProps } from "src/types/command"
-import { createSimpleEmbed } from "src/utils/embeds"
+import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
+import { createSimpleEmbed } from "@/utils/embeds"
 
 export const run = async ({ bot, message, color }: BaseCommandProps) => {
   const sent = await message.reply({

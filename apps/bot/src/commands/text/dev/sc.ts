@@ -1,6 +1,6 @@
 import { type Message, PermissionsBitField } from "discord.js"
-import { InternalPermissions } from "src/types/Config"
-import type { BaseCommandConfig, BaseCommandProps } from "src/types/command"
+import { InternalPermissions } from "@/types/Config"
+import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
 export const run = ({ message, args }: BaseCommandProps<true>) => {
   const hasFirstArg = typeof args[0] === "string" && args[0] !== ""

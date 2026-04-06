@@ -3,7 +3,12 @@
   "globalDependencies": [".env"],
   "tasks": {
     "generate:types": {
-      "inputs": ["$TURBO_DEFAULT$"]
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["packages/shared/src/payload-types.ts"]
+    },
+    "generate:importmap": {
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["packages/payload/src/app/(payload)/admin/importMap.js"]
     },
     "dev": {
       "persistent": true,

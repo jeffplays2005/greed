@@ -49,10 +49,11 @@ jobs:
           SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SERVER_OS: ${{ vars.SERVER_OS }}
           # bot secrets
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          DB_URL: ${{ secrets.DB_URL }}
-          SERVER_OS: ${{ vars.SERVER_OS }}
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
 
   setup-host:
     name: Setup Host

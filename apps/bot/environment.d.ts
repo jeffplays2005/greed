@@ -8,7 +8,11 @@ declare global {
       /**
        * The Postgres database URL.
        */
-      DB_URL: string
+      DATABASE_URI: string
+      /**
+       * The secret used to sign secrets in Payload.
+       */
+      PAYLOAD_SECRET: string
       /**
        * The environment in which the application is running.
        */
