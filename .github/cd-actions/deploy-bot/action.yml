@@ -37,9 +37,8 @@ runs:
     - name: Prepare directory structure for deployment
       shell: bash
       run: |
-        mkdir -p app
-        mkdir -p app/apps
         mkdir -p app/apps/bot
+        mkdir -p app/packages/payload
         cp ./package.json app/package.json
         cp ./bun.lock app/bun.lock
         cp ./Dockerfile app/Dockerfile
@@ -47,6 +46,7 @@ runs:
         cp ./docker-compose.yml app/docker-compose.yml
         cp ./tsconfig.json app/tsconfig.json
         cp -r ./apps/bot/. app/apps/bot
+        cp -r ./packages/payload/. app/packages/payload
 
     - name: Upload combined directory to E2
       uses: burnett01/rsync-deployments@8.0.4
