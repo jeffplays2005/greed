@@ -1,7 +1,7 @@
 import { Collection, Client as DiscordClient, IntentsBitField } from "discord.js"
 import "dotenv/config"
 import { Config } from "./config"
-import { payload } from "./database/Payload"
+import { payload } from "./database/adapters/Payload"
 import CommandManager from "./managers/CommandManager"
 import EventManager from "./managers/EventManager"
 import type { Client } from "./types/Client"
