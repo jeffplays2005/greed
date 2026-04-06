@@ -149,7 +149,10 @@ export interface Admin {
 export interface User {
   id: string;
   userId: string;
-  balance: number;
+  /**
+   * Set as null for users that haven't joined a team yet
+   */
+  balance?: number | null;
   /**
    * Example format: name;8=====D
    */

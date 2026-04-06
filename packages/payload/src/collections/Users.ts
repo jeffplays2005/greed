@@ -12,8 +12,9 @@ export const Users: CollectionConfig = {
     {
       name: "balance",
       type: "number",
-      defaultValue: 100,
-      required: true,
+      admin: {
+        description: "Set as null for users that haven't joined a team yet",
+      },
     },
     {
       name: "pp",
