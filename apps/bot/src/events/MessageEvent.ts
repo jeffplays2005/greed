@@ -61,7 +61,7 @@ async function MessageEvent(message: Message, bot: Client) {
       bot,
       command: commandName,
       args,
-      db: undefined,
+      db: bot.db,
       prefix,
       color,
       payload: bot.payload,
