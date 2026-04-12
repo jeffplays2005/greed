@@ -1,4 +1,4 @@
-import { Collection, Client as DiscordClient, IntentsBitField } from "discord.js"
+import { Collection, Client as DiscordClient, IntentsBitField, Partials } from "discord.js"
 import "dotenv/config"
 import { Config } from "./config"
 import { payload } from "./database/adapters/Payload"
@@ -15,6 +15,7 @@ const bot = new DiscordClient({
     IntentsBitField.Flags.MessageContent,
     IntentsBitField.Flags.DirectMessages,
   ],
+  partials: [Partials.Message, Partials.Channel, Partials.User],
 }) as Client
 
 bot.cache = new Collection<CacheCollectionKeys, unknown>()
