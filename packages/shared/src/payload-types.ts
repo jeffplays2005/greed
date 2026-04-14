@@ -152,7 +152,7 @@ export interface User {
   /**
    * Set as null for users that haven't joined a team yet
    */
-  balance?: number | null;
+  balance: number;
   /**
    * Example format: name;8=====D
    */
