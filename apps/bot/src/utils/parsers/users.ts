@@ -22,12 +22,12 @@ export async function getUser({
 
   let target = bot.users.cache.get(toFind)
 
+  if (!target && message.mentions.users) target = message.mentions.users.first()
+
   if (!target) {
     await bot.users.fetch(toFind).catch(() => null)
     target = bot.users.cache.get(toFind)
   }
-
-  if (!target && message.mentions.users) target = message.mentions.users.first()
 
   if (!target && !excludeSelf) target = message.author
 
