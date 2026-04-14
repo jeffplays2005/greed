@@ -3,9 +3,10 @@ import { createSimpleEmbed } from "@/utils/embeds"
 import { getUser } from "@/utils/parsers"
 
 export const run = async ({ message, args, color, db, bot }: BaseCommandProps) => {
-  const user = getUser({ message, bot, toFind: args[0], excludeSelf: false })
+  const user = await getUser({ message, bot, toFind: args[0], excludeSelf: false })
 
   const userData = await db.users.getUserById(user.id)
+  // TODO: properly find a way to parse balance so this isnt a point of failure
   const bal = userData?.userId ? userData.balance : 100
 
   return message.reply({
