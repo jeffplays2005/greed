@@ -14,7 +14,7 @@ export class UserCollection {
    * @param data The data for the new user.
    * @returns The created user document.
    */
-  public async createUser(data: User): Promise<User> {
+  public async createUser(data: Omit<User, "id" | "createdAt" | "updatedAt">): Promise<User> {
     return await this.db.create({
       collection: "users",
       data,
