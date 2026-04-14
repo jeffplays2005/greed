@@ -1,7 +1,7 @@
 import type { Message } from "discord.js"
 import type { Client } from "@/types/Client"
 
-export type GetMemberOptions = {
+export type GetMemberOptions<T extends boolean> = {
   /**
    * The message object
    */
@@ -13,10 +13,10 @@ export type GetMemberOptions = {
   /**
    * Fallsback to returning the message's member themselves if nobody was found.
    */
-  excludeSelf?: boolean
+  excludeSelf: T
 }
 
-export type GetUserOptions = {
+export type GetUserOptions<T extends boolean> = {
   /**
    * The message object
    */
@@ -32,5 +32,5 @@ export type GetUserOptions = {
   /**
    * Fallsback to returning the message's user themselves if nobody was found.
    */
-  excludeSelf?: boolean
+  excludeSelf: T
 }

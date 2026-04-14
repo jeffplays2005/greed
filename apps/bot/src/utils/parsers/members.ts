@@ -2,15 +2,20 @@ import type { GuildMember } from "discord.js"
 import type { GetMemberOptions } from "./types"
 
 /**
- * Helper function to get a member from either message mentions or display name / tag.
+ * Gets a guild member from message mentions, cache, or display name/tag search.
  *
- * @returns The found member, or undefined if not found
+ * @param options.message The message object to extract mentions and guild context from
+ * @param options.toFind The member ID, display name, or tag to search for (defaults to empty string)
+ * @param options.excludeSelf When true, does not fall back to the message author. When false, falls back to the message member if no match is found.
+ * @returns The found guild member, or undefined if not found or if the message is not in a guild.
  */
-export const getMember = ({
+export function getMember(options: GetMemberOptions<true>): GuildMember | undefined
+export function getMember(options: GetMemberOptions<false>): GuildMember | undefined
+export function getMember({
   message,
   toFind = "",
   excludeSelf = true,
-}: GetMemberOptions): GuildMember | undefined => {
+}: GetMemberOptions<boolean>): GuildMember | undefined {
   const lowercaseFind = toFind.toLowerCase()
 
   if (!message.guild) return undefined
