@@ -1,17 +1,15 @@
 import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 import { createSimpleEmbed } from "@/utils/embeds"
+import { getUser } from "@/utils/parsers"
 
-export const run = async ({ message, color, db, bot }: BaseCommandProps) => {
-  const userData = await db.users.getUserById(message.author.id)
+export const run = async ({ message, args, color, db, bot }: BaseCommandProps) => {
+  const user = getUser({ message, bot, toFind: args[0], excludeSelf: false })
+
+  const userData = await db.users.getUserById(user.id)
   const bal = userData?.userId ? userData.balance : 100
 
   return message.reply({
-    embeds: [
-      createSimpleEmbed(
-        `${message.author}'s balance is ${bal} ${bot.config.emojis.balance}`,
-        color,
-      ),
-    ],
+    embeds: [createSimpleEmbed(`${user}'s balance is ${bal} ${bot.config.emojis.balance}`, color)],
     allowedMentions: {},
   })
 }
