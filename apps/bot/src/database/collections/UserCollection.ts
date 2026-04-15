@@ -42,6 +42,20 @@ export class UserCollection {
   }
 
   /**
+   * Get a user by ID or create them with default balance if they don't exist.
+   *
+   * @param userId The discord ID of the user to find or create.
+   * @returns The user document.
+   */
+  public async getOrCreateUser(userId: string): Promise<User> {
+    let user = await this.getUserById(userId)
+    if (!user) {
+      user = await this.createUser({ userId, balance: 100 })
+    }
+    return user
+  }
+
+  /**
    * Update a user by their ID.
    *
    * @param userId The discord ID of the user to update.

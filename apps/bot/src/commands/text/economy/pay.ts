@@ -22,9 +22,8 @@ export const run = async ({ message, bot, args, color, db }: BaseCommandProps) =
       allowedMentions: {},
     })
 
-  const payerData = await db.users.getUserById(message.author.id)
-  // TODO: properly find a way to parse balance so this isnt a point of failure
-  const payerBalance = payerData.id ? payerData.balance : 100
+  const payerData = await db.users.getOrCreateUser(message.author.id)
+  const payerBalance = payerData.balance
 
   const amount = Number.parseInt(args[1])
   if (isNaN(amount) || amount <= 0)
@@ -38,11 +37,7 @@ export const run = async ({ message, bot, args, color, db }: BaseCommandProps) =
       allowedMentions: {},
     })
 
-  let payeeData = await db.users.getUserById(user.id)
-  if (!payeeData?.userId) {
-    payeeData = await db.users.createUser({ userId: user.id, balance: 100 })
-  }
-
+  const payeeData = await db.users.getOrCreateUser(user.id)
   const payeeBalance = payeeData.balance
 
   await db.users.updateUser(message.author.id, { balance: payerBalance - amount })
