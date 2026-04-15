@@ -9,6 +9,9 @@ const Config = {
   servers: {
     support: ["721726753147453583"],
   },
+  emojis: {
+    balance: "<:01keys:927172772336136222>",
+  },
 }
 
 export { Config }

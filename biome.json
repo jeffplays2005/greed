@@ -30,10 +30,12 @@
       "recommended": true,
       "correctness": {
         "noUnusedVariables": "error",
-        "noUnusedImports": "error"
+        "noUnusedImports": "error",
+        "useParseIntRadix": "off"
       },
       "suspicious": {
-        "noExplicitAny": "error"
+        "noExplicitAny": "error",
+        "noGlobalIsNan": "off"
       },
       "style": {
         "noParameterAssign": "error",

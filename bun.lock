@@ -25,6 +25,9 @@
         "dotenv": "17.3.1",
         "payload": "3.81.0",
       },
+      "devDependencies": {
+        "@repo/shared": "workspace:*",
+      },
     },
     "apps/discord-hono": {
       "name": "greedbot",

@@ -149,6 +149,9 @@ export interface Admin {
 export interface User {
   id: string;
   userId: string;
+  /**
+   * Set as null for users that haven't joined a team yet
+   */
   balance: number;
   /**
    * Example format: name;8=====D

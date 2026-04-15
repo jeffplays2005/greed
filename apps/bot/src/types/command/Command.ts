@@ -1,5 +1,6 @@
 import type { ColorResolvable, Message } from "discord.js"
 import type { Payload } from "payload"
+import type { db } from "@/database/collections"
 import type { Client } from "../Client"
 import type { BaseCommandConfig } from "./Config"
 
@@ -46,9 +47,8 @@ export type BaseCommandProps<IsGuild extends boolean = boolean> = {
   args: string[]
   /**
    * The database object
-   * @remarks TODO
    */
-  db: unknown
+  db: typeof db
   /**
    * The prefix the user uses
    */
