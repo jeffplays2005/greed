@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     admins: Admin;
     users: User;
+    servers: Server;
     confessions: Confession;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -79,6 +80,7 @@ export interface Config {
   collectionsSelect: {
     admins: AdminsSelect<false> | AdminsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    servers: ServersSelect<false> | ServersSelect<true>;
     confessions: ConfessionsSelect<false> | ConfessionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -164,6 +166,25 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "servers".
+ */
+export interface Server {
+  id: string;
+  serverId?: string | null;
+  confessionSettings?: ConfessionSettings;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConfessionSettings".
+ */
+export interface ConfessionSettings {
+  cooldownSeconds?: number | null;
+  channel?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "confessions".
  */
 export interface Confession {
@@ -210,6 +231,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'servers';
+        value: string | Server;
       } | null)
     | ({
         relationTo: 'confessions';
@@ -289,6 +314,24 @@ export interface UsersSelect<T extends boolean = true> {
   pp?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "servers_select".
+ */
+export interface ServersSelect<T extends boolean = true> {
+  serverId?: T;
+  confessionSettings?: T | ConfessionSettingsSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConfessionSettings_select".
+ */
+export interface ConfessionSettingsSelect<T extends boolean = true> {
+  cooldownSeconds?: T;
+  channel?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
