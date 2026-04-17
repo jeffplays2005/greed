@@ -58,4 +58,9 @@ export type BaseCommandProps<IsGuild extends boolean = boolean> = {
    * @default #2f3136
    */
   color: ColorResolvable
+  /**
+   * The hex color to use
+   * @default 0x2f3136
+   */
+  hexColor: number
 }

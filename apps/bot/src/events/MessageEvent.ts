@@ -10,7 +10,8 @@ async function MessageEvent(message: Message, bot: Client) {
   if (message.author.bot) return
 
   const prefix = process.env.NODE_ENV === "development" ? bot.config.devPrefix : bot.config.prefix
-  const color = bot.config.defaultHexColor as ColorResolvable
+  const color = bot.config.defaultColor as ColorResolvable
+  const hexColor = bot.config.defaultHexColor
 
   // Only process messages with the prefix
   if (!message.content.startsWith(prefix)) return
@@ -64,6 +65,7 @@ async function MessageEvent(message: Message, bot: Client) {
       db: bot.db,
       prefix,
       color,
+      hexColor,
       payload: bot.payload,
     })
   } catch (error) {
