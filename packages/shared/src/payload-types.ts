@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     admins: Admin;
     users: User;
+    confessions: Confession;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     admins: AdminsSelect<false> | AdminsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    confessions: ConfessionsSelect<false> | ConfessionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -162,6 +164,23 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "confessions".
+ */
+export interface Confession {
+  id: string;
+  /**
+   * The user ID stored for a particular confession. Note that this is not a relation to the Users collection as a user is not expected to have a db record via that.
+   */
+  userId?: string | null;
+  /**
+   * The server ID stored for a particular confession.
+   */
+  serverId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -191,6 +210,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'confessions';
+        value: string | Confession;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -264,6 +287,16 @@ export interface UsersSelect<T extends boolean = true> {
   userId?: T;
   balance?: T;
   pp?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "confessions_select".
+ */
+export interface ConfessionsSelect<T extends boolean = true> {
+  userId?: T;
+  serverId?: T;
   updatedAt?: T;
   createdAt?: T;
 }

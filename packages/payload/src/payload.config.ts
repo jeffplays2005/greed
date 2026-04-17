@@ -5,6 +5,7 @@ import type { Config } from "@repo/shared/payload-types"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 import { Admins } from "./collections/Admins"
+import { Confessions } from "./collections/Confessions"
 import { Users } from "./collections/Users"
 
 const filename = fileURLToPath(import.meta.url)
@@ -17,7 +18,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Admins, Users],
+  collections: [Admins, Users, Confessions],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "../../shared/src/payload-types.ts"),
