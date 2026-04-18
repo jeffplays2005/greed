@@ -9,7 +9,7 @@ export interface ButtonModule {
   /**
    * The callback function to run when the interaction is executed
    */
-  run(props: ButtonInteraction): Promise<unknown> | unknown
+  run(props: ButtonInteractionProps): Promise<unknown> | unknown
 }
 
 export type ButtonConfig = {
@@ -20,17 +20,17 @@ export type ButtonConfig = {
   /**
    * If the response given should be ephemeral
    */
-  ephemeral: boolean
+  ephemeral?: boolean
   /**
    * If the response should be updated instead of sent as a new message
    */
-  update: boolean
+  update?: boolean
 }
 
 /**
  * Button interface that extends the base interaction interace.
  */
-export interface ButtonInteraction extends BaseInteractionProp<DiscordButtonInteraction> {
+export interface ButtonInteractionProps extends BaseInteractionProp<DiscordButtonInteraction> {
   /**
    * The interaction name
    * @example s_cfn

@@ -1,1 +1,1 @@
-export type { ButtonInteraction, ButtonModule } from "./Button"
+export type { ButtonInteractionProps, ButtonModule } from "./Button"
