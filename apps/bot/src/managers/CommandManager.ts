@@ -13,7 +13,6 @@ import { CooldownHelper } from "@/utils/cooldowns"
  * @param bot The base discord client
  */
 const CommandManager = (bot: Client) => {
-  bot.interactions = new Collection<string, unknown>()
   bot.commands = new Collection<string, CommandModule>()
   bot.aliases = new Collection<string, string>()
   // Cooldowns
