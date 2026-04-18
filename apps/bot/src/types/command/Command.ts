@@ -21,7 +21,9 @@ export type CommandModule = {
    * @template IsGuild Whether the command is executed in a guild context. This helps commands that
    * can safely assume they're within a guild context and not worry about whether they're in a DM.
    */
-  run<IsGuild extends boolean = boolean>(props: BaseCommandProps<IsGuild>): Promise<void> | void
+  run<IsGuild extends boolean = boolean>(
+    props: BaseCommandProps<IsGuild>,
+  ): Promise<unknown> | unknown
 }
 
 /**
