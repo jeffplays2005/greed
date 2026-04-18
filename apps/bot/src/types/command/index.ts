@@ -1,2 +1,1 @@
-export type { BaseCommandProps } from "./Command"
-export type { BaseCommandConfig } from "./Config"
+export type { BaseCommandConfig, BaseCommandProps } from "./Command"
