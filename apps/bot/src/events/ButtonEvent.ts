@@ -37,11 +37,13 @@ const ButtonEvent = async (interaction: Interaction, bot: Client) => {
   try {
     if (buttonModule.config.update) {
       await interaction.deferUpdate()
-    } else {
-      await interaction.deferReply({ ephemeral: buttonModule.config.ephemeral })
+    } else if (buttonModule.config.ephemeral) {
+      await interaction.deferReply({
+        flags: buttonModule.config.ephemeral ? [MessageFlags.Ephemeral] : [],
+      })
     }
 
-    buttonModule.run(props)
+    await buttonModule.run(props)
   } catch (error) {
     console.error(`[ERROR] Command "${buttonModule.config.name}" execution failed:`, error)
   }
