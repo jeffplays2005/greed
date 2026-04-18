@@ -1,4 +1,4 @@
-import type { ButtonInteraction as DiscordButtonInteraction } from "discord.js"
+import type { CacheType, ButtonInteraction as DiscordButtonInteraction } from "discord.js"
 import type { BaseInteractionProp } from "./BaseInteraction"
 
 /**
@@ -9,7 +9,7 @@ export interface ButtonModule {
   /**
    * The callback function to run when the interaction is executed
    */
-  run(props: ButtonInteractionProps): Promise<unknown> | unknown
+  run<T extends CacheType = CacheType>(props: ButtonInteractionProps<T>): Promise<unknown> | unknown
 }
 
 export type ButtonConfig = {
@@ -30,7 +30,12 @@ export type ButtonConfig = {
 /**
  * Button interface that extends the base interaction interace.
  */
-export interface ButtonInteractionProps extends BaseInteractionProp<DiscordButtonInteraction> {
+export interface ButtonInteractionProps<T extends CacheType = CacheType>
+  extends BaseInteractionProp {
+  /**
+   * The interaction that was executed
+   */
+  interaction: DiscordButtonInteraction<T>
   /**
    * The interaction name
    * @example s_cfn
