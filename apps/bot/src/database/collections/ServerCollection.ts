@@ -1,4 +1,4 @@
-import type { Server } from "@repo/shared/payload-types"
+import type { Confession, Server } from "@repo/shared/payload-types"
 import type { Payload } from "payload"
 
 export class ServerCollection {
@@ -68,6 +68,96 @@ export class ServerCollection {
       collection: "servers",
       id: serverId,
       data,
+    })
+  }
+
+  /**
+   * Confession update methods
+   */
+
+  /**
+   * Retrieves the muted confessions for a server.
+   *
+   * @param serverId The ID of the server to retrieve confessions for.
+   * @returns The muted confessions for the server.
+   */
+  public async getServerConfessions(serverId: string): Promise<(Confession | string)[]> {
+    return (
+      (
+        await this.db.find({
+          collection: "servers",
+          where: {
+            serverId: {
+              equals: serverId,
+            },
+          },
+        })
+      ).docs[0].confessionSettings?.mutedConfessions ?? []
+    )
+  }
+
+  /**
+   * Checks if a confession is muted on a server.
+   *
+   * @param serverId The ID of the server to check.
+   * @param confessionId The ID of the confession to check.
+   * @returns A promise that resolves to `true` if the confession is muted, `false` otherwise.
+   */
+  public async checkServerConfessions(serverId: string, confessionId: string): Promise<boolean> {
+    return (
+      (
+        await this.db.find({
+          collection: "servers",
+          where: {
+            serverId: {
+              equals: serverId,
+            },
+            "confessionSettings.mutedConfessions": {
+              contains: confessionId,
+            },
+          },
+        })
+      ).docs.length > 0
+    )
+  }
+
+  /**
+   * Removes a muted confession from a server.
+   *
+   * @param serverId The ID of the server to remove the confession from.
+   * @param confessionId The ID of the confession to remove.
+   * @returns A promise that resolves when the confession is removed.
+   */
+  public async addMutedConfession(serverId: string, confessionId: string): Promise<Server | null> {
+    const server = await this.getServerByDiscordId(serverId)
+    if (!server) return null
+    return await this.updateServer(server.id, {
+      confessionSettings: {
+        mutedConfessions: [...(server.confessionSettings?.mutedConfessions ?? []), confessionId],
+      },
+    })
+  }
+
+  /**
+   * Removes a muted confession from a server.
+   *
+   * @param serverId The ID of the server to remove the confession from.
+   * @param confessionId The ID of the confession to remove.
+   * @returns A promise that resolves when the confession is removed.
+   */
+  public async removeMutedConfession(
+    serverId: string,
+    confessionId: string,
+  ): Promise<Server | null> {
+    const server = await this.getServerByDiscordId(serverId)
+    if (!server) return null
+
+    const confessions = (server.confessionSettings?.mutedConfessions || []) as Confession[]
+
+    return await this.updateServer(server.id, {
+      confessionSettings: {
+        mutedConfessions: confessions.filter((confession) => confession?.id !== confessionId),
+      },
     })
   }
 }
