@@ -71,6 +71,7 @@ export interface Config {
     users: User;
     servers: Server;
     confessions: Confession;
+    'confession-mutes': ConfessionMute;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     servers: ServersSelect<false> | ServersSelect<true>;
     confessions: ConfessionsSelect<false> | ConfessionsSelect<true>;
+    'confession-mutes': ConfessionMutesSelect<false> | ConfessionMutesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -202,6 +204,35 @@ export interface Confession {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "confession-mutes".
+ */
+export interface ConfessionMute {
+  id: string;
+  /**
+   * The reference to the confession that was muted.
+   */
+  confession: string | Confession;
+  /**
+   * The Discord ID of the user who posted the confession.
+   */
+  userId: string;
+  /**
+   * The Discord ID of the server.
+   */
+  serverId: string;
+  /**
+   * The Discord ID of the user who muted the confession.
+   */
+  mutedBy: string;
+  /**
+   * The reason for muting the confession.
+   */
+  reason: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -239,6 +270,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'confessions';
         value: string | Confession;
+      } | null)
+    | ({
+        relationTo: 'confession-mutes';
+        value: string | ConfessionMute;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -340,6 +375,19 @@ export interface ConfessionSettingsSelect<T extends boolean = true> {
 export interface ConfessionsSelect<T extends boolean = true> {
   userId?: T;
   serverId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "confession-mutes_select".
+ */
+export interface ConfessionMutesSelect<T extends boolean = true> {
+  confession?: T;
+  userId?: T;
+  serverId?: T;
+  mutedBy?: T;
+  reason?: T;
   updatedAt?: T;
   createdAt?: T;
 }

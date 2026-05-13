@@ -5,6 +5,7 @@ import type { Config } from "@repo/shared/payload-types"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 import { Admins } from "./collections/Admins"
+import { ConfessionMutes } from "./collections/ConfessionMutes"
 import { Confessions } from "./collections/Confessions"
 import { Servers } from "./collections/Servers"
 import { Users } from "./collections/Users"
@@ -19,7 +20,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Admins, Users, Servers, Confessions],
+  collections: [Admins, Users, Servers, Confessions, ConfessionMutes],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "../../shared/src/payload-types.ts"),
