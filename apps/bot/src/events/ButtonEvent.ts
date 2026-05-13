@@ -8,6 +8,11 @@ const ButtonEvent = async (interaction: Interaction, bot: Client) => {
   const customId = interaction.customId
   const [interactionName, ...args] = customId.split("-")
 
+  // ignore any "ignore" suffix in the customId, this is normally for forms etc where we want the listener event to be local
+  if (args[0] === "ignore") {
+    return
+  }
+
   if (args[0] !== interaction.user.id) {
     return interaction.reply({
       content: "start your own interaction...",
