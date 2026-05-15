@@ -6,6 +6,12 @@ const ReadyEvent = (bot: Client) => {
   bot.user?.setActivity({
     name: "/xo",
   })
+
+  setInterval(() => {
+    bot.user?.setActivity({
+      name: "/xo",
+    })
+  }, 60_000)
 }
 
 export default ReadyEvent
