@@ -60,7 +60,7 @@ export class ServerCollection {
    * @param data The partial data to update.
    * @returns The updated server.
    */
-  public async updateServer(
+  public async updateServerById(
     serverId: string,
     data: Partial<Omit<Server, "id" | "createdAt" | "updatedAt">>,
   ): Promise<Server> {
