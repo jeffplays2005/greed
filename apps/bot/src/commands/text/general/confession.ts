@@ -14,6 +14,8 @@ enum ConfessionSubCommand {
   CHANNEL = "channel",
 }
 
+const bannedWords = ["bmlnZ2Vy", "dGVzdA=="]
+
 export const run = async ({
   bot,
   message,
@@ -31,13 +33,56 @@ export const run = async ({
     inGuild(message) &&
     checkMemberPermissions(message, ["ManageGuild"])
   ) {
+    const confessionId = args[1]
+
+    if (confessionId) {
+      const confession = await db.confessionMutes.getMuteByConfessionId(confessionId)
+      if (!confession)
+        return message.reply({
+          embeds: [createSimpleEmbed(`confession not found with id \`${confessionId}\``, color)],
+          allowedMentions: {},
+        })
+
+      const blacklistedConfessionsEmbed = new EmbedBuilder()
+        .setAuthor({
+          name: "confessions » blacklisted",
+          iconURL: message.guild.iconURL() || undefined,
+        })
+        .setDescription(
+          `displaying confession mute details\n\nyou can unmute this confession using \`${prefix}confession unmute ${confessionId}\`\nor you can view all blacklisted confessions using \`${prefix}confession blacklist\``,
+        )
+        .addFields(
+          {
+            name: "confession id",
+            value: confessionId,
+            inline: true,
+          },
+          {
+            name: "reason",
+            value: confession.reason,
+            inline: true,
+          },
+          {
+            name: "muted by",
+            value: confession.mutedBy,
+            inline: true,
+          },
+        )
+        .setColor(color)
+
+      return message.reply({
+        embeds: [blacklistedConfessionsEmbed],
+        allowedMentions: {},
+      })
+    }
+
     const blacklistedConfessionsEmbed = new EmbedBuilder()
       .setAuthor({
         name: "confessions » blacklisted",
         iconURL: message.guild.iconURL() || undefined,
       })
       .setDescription(
-        `the following confession id's have been muted from posting in **${message.guild.name}**. muting a confession will NOT tell you who posted it.\n\nto get more information on a confession, type \`${prefix}confess blacklist <confession id>\``,
+        `the following confession id's have been muted from posting in **${message.guild.name}**. muting a confession will NOT tell you who posted it.\n\nto get more information on a confession, type \`${prefix}confess blacklist <confession id>\`\nto unmute a confession, type \`${prefix}confession unmute <confession id>\``,
       )
       .setColor(color)
 
@@ -228,7 +273,7 @@ export const run = async ({
         iconURL: message.guild.iconURL() || undefined,
       })
       .setDescription(
-        `${message.author}, you successfully unmuted anonymous confession ${confessionId}\n\nif that user is still in this server, i told them they can now post confessions here again.`,
+        `${message.author}, you successfully unmuted anonymous confession \`${confessionId}\`\n\nif that user is still in this server, i told them they can now post confessions here again.`,
       )
       .setColor(color)
       .setTimestamp()
@@ -382,6 +427,41 @@ export const run = async ({
       })
     }
   } else {
+    if (
+      bannedWords.some((b64) =>
+        confession.toLowerCase().includes(Buffer.from(b64, "base64").toString()),
+      )
+    ) {
+      const confessionRecord = await db.confessions.createConfession({
+        userId: message.author.id,
+        serverId: bot.config.servers.support[0],
+      })
+
+      await db.confessionMutes.muteConfession({
+        confession: confessionRecord.id,
+        userId: message.author.id,
+        serverId: bot.config.servers.support[0],
+        mutedBy: message.author.id,
+        reason: "automod ban for slur",
+      })
+
+      return message.reply({
+        embeds: [
+          createSimpleEmbed("you have been muted from anonymous confessions in **xo**", color)
+            .setAuthor({
+              iconURL: bot.guilds.cache.get(bot.config.servers.support[0])?.iconURL() || undefined,
+              name: "confessions » muted",
+              url: "https://discord.gg/xo",
+            })
+            .addFields({
+              name: "reason",
+              value: "automod ban for slur",
+            })
+            .setTimestamp(),
+        ],
+        allowedMentions: {},
+      })
+    }
     confessionEmbed.setDescription(confession)
   }
 
