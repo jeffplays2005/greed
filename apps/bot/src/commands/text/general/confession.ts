@@ -14,6 +14,8 @@ enum ConfessionSubCommand {
   CHANNEL = "channel",
 }
 
+const bannedWords = ["bmlnZ2Vy", "dGVzdA=="]
+
 export const run = async ({
   bot,
   message,
@@ -382,6 +384,41 @@ export const run = async ({
       })
     }
   } else {
+    if (
+      bannedWords.some((b64) =>
+        confession.toLowerCase().includes(Buffer.from(b64, "base64").toString()),
+      )
+    ) {
+      const confessionRecord = await db.confessions.createConfession({
+        userId: message.author.id,
+        serverId: bot.config.servers.support[0],
+      })
+
+      await db.confessionMutes.muteConfession({
+        confession: confessionRecord.id,
+        userId: message.author.id,
+        serverId: bot.config.servers.support[0],
+        mutedBy: message.author.id,
+        reason: "automod ban for slur",
+      })
+
+      return message.reply({
+        embeds: [
+          createSimpleEmbed("you have been muted from anonymous confessions in **xo**", color)
+            .setAuthor({
+              iconURL: bot.guilds.cache.get(bot.config.servers.support[0])?.iconURL() || undefined,
+              name: "confessions » muted",
+              url: "https://discord.gg/xo",
+            })
+            .addFields({
+              name: "reason",
+              value: "automod ban for slur",
+            })
+            .setTimestamp(),
+        ],
+        allowedMentions: {},
+      })
+    }
     confessionEmbed.setDescription(confession)
   }
 
