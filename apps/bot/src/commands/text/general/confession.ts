@@ -340,6 +340,19 @@ export const run = async ({
     })
   }
 
+  const cooldown = bot.cooldownManager.isOnCooldown(message.author.id, "confession-create")
+  if (cooldown) {
+    return message.reply({
+      embeds: [
+        createSimpleEmbed(
+          `you are on cooldown for posting confessions, you can send another <t:${Math.floor(cooldown / 1000)}:R>`,
+          color,
+        ),
+      ],
+      allowedMentions: {},
+    })
+  }
+
   const confessionChannel = bot.channels.cache.get(
     confessSettings?.confessionSettings?.channel || "",
   )
@@ -371,6 +384,13 @@ export const run = async ({
   } else {
     confessionEmbed.setDescription(confession)
   }
+
+  // Set cooldown earlier to avoid users double sending
+  bot.cooldownManager.setCooldown(
+    message.author.id,
+    "confession-create",
+    confessSettings?.confessionSettings?.cooldownSeconds ?? 300,
+  )
 
   const confessionRecord = await db.confessions.createConfession({
     userId: message.author.id,

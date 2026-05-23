@@ -16,7 +16,7 @@ export class CooldownHelper {
    *
    * @param userId The ID of the {@link User} to check.
    * @param command The name of the command to check cooldown for.
-   * @returns The remaining cooldown time in milliseconds, or 0 if not on cooldown or cooldown has expired.
+   * @returns The end time of the cooldown in milliseconds, or 0 if not on cooldown or cooldown has expired.
    */
   public isOnCooldown(userId: string, command: string): number {
     const key: `${string}:${string}` = `${userId}:${command}`
@@ -28,7 +28,7 @@ export class CooldownHelper {
       this.cooldowns.delete(key)
       return 0
     }
-    return entry - now
+    return entry
   }
 
   /**
