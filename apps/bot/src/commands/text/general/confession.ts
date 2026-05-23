@@ -82,7 +82,7 @@ export const run = async ({
         iconURL: message.guild.iconURL() || undefined,
       })
       .setDescription(
-        `the following confession id's have been muted from posting in **${message.guild.name}**. muting a confession will NOT tell you who posted it.\n\nto get more information on a confession, type \`${prefix}confess blacklist <confession id>\``,
+        `the following confession id's have been muted from posting in **${message.guild.name}**. muting a confession will NOT tell you who posted it.\n\nto get more information on a confession, type \`${prefix}confess blacklist <confession id>\`\nto unmute a confession, type \`${prefix}confession unmute <confession id>\``,
       )
       .setColor(color)
 
@@ -273,7 +273,7 @@ export const run = async ({
         iconURL: message.guild.iconURL() || undefined,
       })
       .setDescription(
-        `${message.author}, you successfully unmuted anonymous confession ${confessionId}\n\nif that user is still in this server, i told them they can now post confessions here again.`,
+        `${message.author}, you successfully unmuted anonymous confession \`${confessionId}\`\n\nif that user is still in this server, i told them they can now post confessions here again.`,
       )
       .setColor(color)
       .setTimestamp()
