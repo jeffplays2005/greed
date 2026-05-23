@@ -33,6 +33,49 @@ export const run = async ({
     inGuild(message) &&
     checkMemberPermissions(message, ["ManageGuild"])
   ) {
+    const confessionId = args[1]
+
+    if (confessionId) {
+      const confession = await db.confessionMutes.getMuteByConfessionId(confessionId)
+      if (!confession)
+        return message.reply({
+          embeds: [createSimpleEmbed(`confession not found with id \`${confessionId}\``, color)],
+          allowedMentions: {},
+        })
+
+      const blacklistedConfessionsEmbed = new EmbedBuilder()
+        .setAuthor({
+          name: "confessions » blacklisted",
+          iconURL: message.guild.iconURL() || undefined,
+        })
+        .setDescription(
+          `displaying confession mute details\n\nyou can unmute this confession using \`${prefix}confession unmute ${confessionId}\`\nor you can view all blacklisted confessions using \`${prefix}confession blacklist\``,
+        )
+        .addFields(
+          {
+            name: "confession id",
+            value: confessionId,
+            inline: true,
+          },
+          {
+            name: "reason",
+            value: confession.reason,
+            inline: true,
+          },
+          {
+            name: "muted by",
+            value: confession.mutedBy,
+            inline: true,
+          },
+        )
+        .setColor(color)
+
+      return message.reply({
+        embeds: [blacklistedConfessionsEmbed],
+        allowedMentions: {},
+      })
+    }
+
     const blacklistedConfessionsEmbed = new EmbedBuilder()
       .setAuthor({
         name: "confessions » blacklisted",
