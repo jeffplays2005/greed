@@ -35,4 +35,14 @@ export class ConfessionCollection {
       id: confessionId,
     })
   }
+
+  /**
+   * Clears all confessions from the database.
+   */
+  public async clearConfessions(): Promise<void> {
+    await this.db.delete({
+      collection: "confessions",
+      where: {},
+    })
+  }
 }
