@@ -10,7 +10,8 @@ async function MessageEvent(message: Message, bot: Client) {
   if (message.author.bot) return
 
   const prefix = process.env.NODE_ENV === "development" ? bot.config.devPrefix : bot.config.prefix
-  const color = bot.config.defaultHexColor as ColorResolvable
+  const color = bot.config.defaultColor as ColorResolvable
+  const hexColor = bot.config.defaultHexColor
 
   // Only process messages with the prefix
   if (!message.content.startsWith(prefix)) return
@@ -51,7 +52,12 @@ async function MessageEvent(message: Message, bot: Client) {
     const cd = bot.cooldownManager.isOnCooldown(message.author.id, config.name)
     if (cd)
       return message.reply({
-        embeds: [createSimpleEmbed(`you are on cooldown for ${Math.round(cd / 1000)}s.`, color)],
+        embeds: [
+          createSimpleEmbed(
+            `you are on cooldown for this command! try again <t:${Math.floor(cd / 1000)}:R>`,
+            color,
+          ),
+        ],
         allowedMentions: { repliedUser: false },
       })
     bot.cooldownManager.setCooldown(message.author.id, config.name, config.cooldown)
@@ -64,6 +70,7 @@ async function MessageEvent(message: Message, bot: Client) {
       db: bot.db,
       prefix,
       color,
+      hexColor,
       payload: bot.payload,
     })
   } catch (error) {

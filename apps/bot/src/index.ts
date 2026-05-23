@@ -5,6 +5,7 @@ import { payload } from "./database/adapters/Payload"
 import { db } from "./database/collections"
 import CommandManager from "./managers/CommandManager"
 import EventManager from "./managers/EventManager"
+import InteractionManager from "./managers/InteractionManager"
 import type { Client } from "./types/Client"
 import type { CacheCollectionKeys } from "./types/Collection"
 
@@ -25,5 +26,6 @@ bot.db = db
 
 EventManager(bot)
 CommandManager(bot)
+InteractionManager(bot)
 
 bot.login(process.env.BOT_TOKEN)

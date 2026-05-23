@@ -2,7 +2,11 @@ import type { ColorResolvable, Message } from "discord.js"
 import type { Payload } from "payload"
 import type { db } from "@/database/collections"
 import type { Client } from "../Client"
-import type { BaseCommandConfig } from "./Config"
+import type {
+  DmsOnlyPermissionSet,
+  GuildOnlyPermissionSet,
+  NoLocationRestrictionPermissionSet,
+} from "./Permissions"
 
 /**
  * The return type of parsed command
@@ -17,7 +21,57 @@ export type CommandModule = {
    * @template IsGuild Whether the command is executed in a guild context. This helps commands that
    * can safely assume they're within a guild context and not worry about whether they're in a DM.
    */
-  run<IsGuild extends boolean = boolean>(props: BaseCommandProps<IsGuild>): Promise<void> | void
+  run<IsGuild extends boolean = boolean>(
+    props: BaseCommandProps<IsGuild>,
+  ): Promise<unknown> | unknown
+}
+
+/**
+ * The base command config type used to unionise typings
+ */
+export type BaseCommandConfig = {
+  /**
+   * The name of the command
+   */
+  name: string
+  /**
+   * The description of the command (used for help command)
+   */
+  description: string
+  /**
+   * A list of usages
+   * @remarks Do not include the prefix within the usage, this is appended
+   */
+  usage: string[]
+  /**
+   * A list of aliases
+   */
+  aliases?: string[]
+  /**
+   * The cooldown in seconds for this command, use 0 for no cooldown
+   * @example 1
+   */
+  cooldown?: number
+  /**
+   * Various permission config options
+   */
+  permissionSet?: GuildOnlyPermissionSet | DmsOnlyPermissionSet | NoLocationRestrictionPermissionSet
+  /**
+   * If the command is disabled
+   * @default false
+   */
+  disabled?: boolean
+  /**
+   * If the command is dev only
+   * @remarks Takes prescedence over other permissions
+   * @default false
+   */
+  dev?: boolean
+  /**
+   * If the command should be hidden away from the help command
+   * @default false
+   */
+  hide?: boolean
 }
 
 /**
@@ -58,4 +112,9 @@ export type BaseCommandProps<IsGuild extends boolean = boolean> = {
    * @default #2f3136
    */
   color: ColorResolvable
+  /**
+   * The hex color to use
+   * @default 0x2f3136
+   */
+  hexColor: number
 }

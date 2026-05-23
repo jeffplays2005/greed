@@ -7,5 +7,22 @@ export const Servers: CollectionConfig = {
       name: "serverId",
       type: "text",
     },
+    {
+      name: "confessionSettings",
+      type: "group",
+      interfaceName: "ConfessionSettings",
+      required: false,
+      fields: [
+        {
+          name: "cooldownSeconds",
+          type: "number",
+          defaultValue: 300,
+        },
+        {
+          name: "channel",
+          type: "text",
+        },
+      ],
+    },
   ],
 }

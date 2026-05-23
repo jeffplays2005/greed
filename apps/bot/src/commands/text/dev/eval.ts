@@ -1,10 +1,20 @@
+/** biome-ignore-all lint/correctness/noUnusedFunctionParameters: need to use during eval */
 import { inspect } from "node:util"
 // biome-ignore lint/correctness/noUnusedImports: for use during eval
 import * as Discord from "discord.js"
 import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
-// biome-ignore lint/correctness/noUnusedFunctionParameters: need to use during eval
-export const run = ({ bot, message, args, payload }: BaseCommandProps) => {
+export const run = async ({
+  bot,
+  message,
+  args,
+  payload,
+  db,
+  color,
+  hexColor,
+  command,
+  prefix,
+}: BaseCommandProps) => {
   if (message.author.id !== "543185949803151370") return
 
   const clean = (toCheck: unknown) => {
@@ -22,7 +32,7 @@ export const run = ({ bot, message, args, payload }: BaseCommandProps) => {
   try {
     const code = args.join(" ")
     // biome-ignore lint/security/noGlobalEval: dev only
-    let evaled = eval(code)
+    let evaled = await eval(code)
 
     if (typeof evaled !== "string") evaled = inspect(evaled)
 

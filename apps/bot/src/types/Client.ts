@@ -5,6 +5,7 @@ import type { CooldownHelper } from "@/utils/cooldowns"
 import type { Config } from "../config"
 import type { CacheCollectionKeys } from "./Collection"
 import type { CommandModule } from "./command/Command"
+import type { ButtonModule } from "./interactions"
 
 /**
  * The modified Client type so we can modify the client object
@@ -43,6 +44,10 @@ export type Client<T extends boolean = true> = BaseClient<T> & {
    * The collection for storing interactions
    */
   interactions: Collection<string, unknown>
+  /**
+   * The collection for storing button interactions
+   */
+  buttons: Collection<string, ButtonModule>
   /**
    * The cooldown helper
    */

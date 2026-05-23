@@ -4,6 +4,24 @@ import type { BaseCommandConfig } from "@/types/command"
 import { checkBotPermissions, checkInternalPermissions, checkMemberPermissions } from "./helpers"
 
 /**
+ * Checks if the message is sent in a guild.
+ * @param message The Discord message
+ * @returns True if the message is in a guild, false otherwise
+ */
+export function inGuild(message: Message): boolean {
+  return message.inGuild()
+}
+
+/**
+ * Checks if the message is sent in direct messages.
+ * @param message The Discord message
+ * @returns True if the message is in DMs, false otherwise
+ */
+export function inDms(message: Message): boolean {
+  return !message.inGuild()
+}
+
+/**
  * Validates all permission constraints for a command
  *
  * @param bot The base client
@@ -32,10 +50,10 @@ export function validatePermissions(
   const permSet = config.permissionSet
 
   // Check location constraints (guild / dm only)
-  if (permSet?.guildOnly && !message.inGuild()) {
+  if (permSet?.guildOnly && !inGuild(message)) {
     return { valid: false, error: "this command can only be used in servers!" }
   }
-  if (permSet?.dmsOnly && message.inGuild()) {
+  if (permSet?.dmsOnly && !inDms(message)) {
     return { valid: false, error: "this command can only be used in direct messages!" }
   }
 
