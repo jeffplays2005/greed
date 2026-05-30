@@ -9,6 +9,7 @@ import { ConfessionMutes } from "./collections/ConfessionMutes"
 import { Confessions } from "./collections/Confessions"
 import { Servers } from "./collections/Servers"
 import { Users } from "./collections/Users"
+import { BotConfig } from "./globals/BotConfig"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,6 +22,7 @@ export default buildConfig({
     },
   },
   collections: [Admins, Users, Servers, Confessions, ConfessionMutes],
+  globals: [BotConfig],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "../../shared/src/payload-types.ts"),

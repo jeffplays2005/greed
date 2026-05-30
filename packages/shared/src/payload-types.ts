@@ -93,8 +93,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'bot-config': BotConfig;
+  };
+  globalsSelect: {
+    'bot-config': BotConfigSelect<false> | BotConfigSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -430,6 +434,26 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bot-config".
+ */
+export interface BotConfig {
+  id: string;
+  disabledCommands?: string[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bot-config_select".
+ */
+export interface BotConfigSelect<T extends boolean = true> {
+  disabledCommands?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
