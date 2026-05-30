@@ -1,6 +1,6 @@
 import type { Client as BaseClient, Collection, User } from "discord.js"
 import type { Payload } from "payload"
-import type { db } from "@/database/collections"
+import type { db } from "@/database"
 import type { CooldownHelper } from "@/utils/cooldowns"
 import type { Config } from "../config"
 import type { CacheCollectionKeys } from "./Collection"
