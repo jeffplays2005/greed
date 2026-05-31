@@ -1,6 +1,6 @@
 import type { ColorResolvable } from "discord.js"
 import type { Payload } from "payload"
-import type { db } from "@/database/collections"
+import type { db } from "@/database"
 import type { Client } from "../Client"
 
 /**
