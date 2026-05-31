@@ -1,4 +1,5 @@
 import { Events } from "discord.js"
+import ReadyConfigEvent from "@/events/ReadyConfigEvent"
 import type { Client } from "@/types/Client"
 import ButtonEvent from "../events/ButtonEvent"
 import MessageEvent from "../events/MessageEvent"
@@ -10,7 +11,10 @@ import ReadyEvent from "../events/ReadyEvent"
  * @param bot The bot client
  */
 const EventManager = (bot: Client) => {
-  bot.once(Events.ClientReady, (readyClient) => ReadyEvent(readyClient))
+  bot.once(Events.ClientReady, (readyClient) => {
+    ReadyEvent(readyClient)
+    ReadyConfigEvent(bot)
+  })
   bot.on(Events.MessageCreate, (message) => MessageEvent(message, bot))
   bot.on(Events.InteractionCreate, (interaction) => {
     ButtonEvent(interaction, bot)

@@ -11,5 +11,5 @@ export const db = {
   servers: new ServerCollection(payload),
   confessionMutes: new ConfessionMutesCollection(payload),
   // Globals
-  botConfigs: new BotConfigCollection(payload),
+  botConfig: new BotConfigCollection(payload),
 }

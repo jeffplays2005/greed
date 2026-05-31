@@ -1,5 +1,6 @@
 import type { Message } from "discord.js"
 import type { Client } from "@/types/Client"
+import { CacheCollectionKeys } from "@/types/Collection"
 import type { BaseCommandConfig } from "@/types/command"
 import { checkBotPermissions, checkInternalPermissions, checkMemberPermissions } from "./helpers"
 
@@ -37,6 +38,15 @@ export function validatePermissions(
   // Disabled commands cannot be executed
   if (config.disabled) {
     return { valid: false, error: "this command is disabled!" }
+  }
+
+  // Check if commands are disabled globally via cache
+  const globalDisabledCommands = bot.cache.get(
+    CacheCollectionKeys.GLOBAL_DISABLED_COMMANDS,
+  ) as string[]
+
+  if (globalDisabledCommands?.includes(config.name)) {
+    return { valid: false, error: "this command has been disabled!" }
   }
 
   // Dev-only takes precedence over all other restrictions
