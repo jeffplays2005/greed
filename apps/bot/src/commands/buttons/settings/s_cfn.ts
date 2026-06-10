@@ -50,7 +50,7 @@ export const run = async ({ interaction, hexColor, db }: ButtonInteractionProps<
 }
 
 export const config: ButtonConfig = {
-  name: "s_cfn",
+  name: SettingsButtons.CONFESSION_SETTINGS_BUTTON,
   update: true,
   ephemeral: false,
 }
