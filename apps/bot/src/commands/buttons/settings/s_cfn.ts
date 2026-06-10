@@ -7,12 +7,12 @@ import { SettingsButtons } from "@/types/interactions/enums"
 /**
  * Handle just displaying the settings confession configurations
  */
-export const run = async ({ interaction, hexColor, db }: ButtonInteractionProps<"cached">) => {
+export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionProps<"cached">) => {
   const server = await db.servers.getOrCreateServerByDiscordId(interaction.guild.id)
 
   const returnButton = new ButtonBuilder()
     .setCustomId(`${SettingsButtons.SETTINGS_RETURN_BUTTON}-${interaction.user.id}`)
-    .setLabel("⚙️")
+    .setLabel(bot.config.emojis.return)
     .setStyle(ButtonStyle.Secondary)
 
   const confessionSettingsDisplay = new ContainerBuilder()
