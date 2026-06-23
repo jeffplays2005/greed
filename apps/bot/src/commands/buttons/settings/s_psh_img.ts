@@ -33,7 +33,9 @@ export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionP
       ),
     )
     .addTextDisplayComponents((textDisplay) =>
-      textDisplay.setContent(`**default action**\n${server.phishingImageSettings?.defaultAction}`),
+      textDisplay.setContent(
+        `**default action**\n${server.phishingImageSettings?.defaultAction?.toLowerCase()}`,
+      ),
     )
     .addActionRowComponents((actionRow) => actionRow.setComponents(returnButton))
 
