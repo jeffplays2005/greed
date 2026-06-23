@@ -7,6 +7,11 @@
  */
 
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhishingImageActions".
+ */
+export type PhishingImageActions = ('KICK' | 'BAN' | 'LOG') | null;
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -178,6 +183,7 @@ export interface Server {
   id: string;
   serverId?: string | null;
   confessionSettings?: ConfessionSettings;
+  phishingImageSettings?: PhishingImageSettings;
   updatedAt: string;
   createdAt: string;
 }
@@ -188,6 +194,20 @@ export interface Server {
 export interface ConfessionSettings {
   cooldownSeconds?: number | null;
   channel?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhishingImageSettings".
+ */
+export interface PhishingImageSettings {
+  bannedImages?:
+    | {
+        imageHash?: string | null;
+        imageUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  defaultAction?: PhishingImageActions;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -361,6 +381,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface ServersSelect<T extends boolean = true> {
   serverId?: T;
   confessionSettings?: T | ConfessionSettingsSelect<T>;
+  phishingImageSettings?: T | PhishingImageSettingsSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -371,6 +392,20 @@ export interface ServersSelect<T extends boolean = true> {
 export interface ConfessionSettingsSelect<T extends boolean = true> {
   cooldownSeconds?: T;
   channel?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhishingImageSettings_select".
+ */
+export interface PhishingImageSettingsSelect<T extends boolean = true> {
+  bannedImages?:
+    | T
+    | {
+        imageHash?: T;
+        imageUrl?: T;
+        id?: T;
+      };
+  defaultAction?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

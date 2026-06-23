@@ -24,5 +24,34 @@ export const Servers: CollectionConfig = {
         },
       ],
     },
+    {
+      name: "phishingImageSettings",
+      type: "group",
+      interfaceName: "PhishingImageSettings",
+      required: false,
+      fields: [
+        {
+          name: "bannedImages",
+          type: "array",
+          fields: [
+            {
+              name: "imageHash",
+              type: "text",
+            },
+            {
+              name: "imageUrl",
+              type: "text",
+            },
+          ],
+        },
+        {
+          name: "defaultAction",
+          type: "select",
+          interfaceName: "PhishingImageActions",
+          options: ["KICK", "BAN", "LOG"],
+          defaultValue: "BAN",
+        },
+      ],
+    },
   ],
 }
