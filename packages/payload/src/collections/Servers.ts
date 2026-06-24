@@ -35,6 +35,10 @@ export const Servers: CollectionConfig = {
           type: "array",
           fields: [
             {
+              name: "description",
+              type: "text",
+            },
+            {
               name: "imageHash",
               type: "text",
             },

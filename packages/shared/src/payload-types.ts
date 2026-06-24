@@ -202,6 +202,7 @@ export interface ConfessionSettings {
 export interface PhishingImageSettings {
   bannedImages?:
     | {
+        description?: string | null;
         imageHash?: string | null;
         imageUrl?: string | null;
         id?: string | null;
@@ -401,6 +402,7 @@ export interface PhishingImageSettingsSelect<T extends boolean = true> {
   bannedImages?:
     | T
     | {
+        description?: T;
         imageHash?: T;
         imageUrl?: T;
         id?: T;
