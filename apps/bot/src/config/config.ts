@@ -13,6 +13,7 @@ const Config = {
   emojis: {
     balance: "<:01keys:927172772336136222>",
     return: "↩️",
+    reload: "🔃",
     add: "➕",
     view: "👁️",
   },
