@@ -80,6 +80,8 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
   })
 
   collector.on("collect", async (i) => {
+    if (i.user.id !== interaction.user.id) return
+
     if (i.isStringSelectMenu() && i.customId === InteractionIds.DEFAULT_ACTION_SELECT) {
       const settings = await db.servers.getOrCreateServerByDiscordId(interaction.guild.id)
 
