@@ -60,5 +60,23 @@ const PhishingImgHelper = {
 
     return message.attachments.first()
   },
+
+  /**
+   * Transforms a message URL into an attachment.
+   *
+   * @param bot The bot client.
+   * @param messageUrl The URL of the message containing the image.
+   * @returns The attachment of the image, or undefined if the channel is not sendable or the message is not found.
+   */
+  async transformMsgUrlToAttachment(
+    bot: Client,
+    messageUrl: string,
+  ): Promise<Attachment | undefined> {
+    const splittedUrlBySlash = messageUrl.split("/")
+    const messageId = splittedUrlBySlash[splittedUrlBySlash.length - 1]
+    if (!messageId) return
+
+    return await this.fetchImg(bot, messageId)
+  },
 }
 export default PhishingImgHelper

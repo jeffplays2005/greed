@@ -3,7 +3,7 @@ import { SettingsButtons } from "@/types/interactions"
 import type { ButtonConfig, ButtonInteractionProps } from "@/types/interactions/Button"
 import { createSimpleEmbed } from "@/utils/embeds"
 import PhishingImgHelper from "@/utils/phishing-img-helper"
-import { run as runImageView } from "./s_psh_img_view"
+import { run as runImageView } from "./s_psh_img_view_imgs"
 
 export const run = async ({
   bot,
@@ -91,7 +91,7 @@ export const run = async ({
   await runImageView({ interaction, db, hexColor, bot } as ButtonInteractionProps<"cached">)
 }
 export const config: ButtonConfig = {
-  name: SettingsButtons.PHISHING_IMAGE_SETTINGS_ADD_IMAGE,
+  name: SettingsButtons.PHISHING_IMAGE_SETTINGS_ADD_IMG,
   update: false,
   ephemeral: false,
 }

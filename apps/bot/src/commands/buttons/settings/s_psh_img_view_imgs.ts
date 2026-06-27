@@ -11,18 +11,26 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
     : "-# no banned images configured"
 
   const addButton = new ButtonBuilder()
-    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_ADD_IMAGE}-${interaction.user.id}`)
+    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_ADD_IMG}-${interaction.user.id}`)
     .setLabel("+")
     .setStyle(ButtonStyle.Success)
 
   const removeButton = new ButtonBuilder()
-    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_REMOVE_IMAGE}-${interaction.user.id}`)
+    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_REMOVE_IMG}-${interaction.user.id}`)
     .setLabel("-")
     .setStyle(ButtonStyle.Danger)
     .setDisabled(!images.some((image) => image.id))
 
+  const showDetailsButton = new ButtonBuilder()
+    .setCustomId(
+      `${SettingsButtons.PHISHING_IMAGE_SETTINGS_DETAILED_IMG_VIEW}-${interaction.user.id}`,
+    )
+    .setLabel("🔍")
+    .setStyle(ButtonStyle.Secondary)
+    .setDisabled(!images.some((image) => image.id))
+
   const reloadButton = new ButtonBuilder()
-    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMAGES}-${interaction.user.id}`)
+    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMGS}-${interaction.user.id}`)
     .setLabel(bot.config.emojis.reload)
     .setStyle(ButtonStyle.Primary)
 
@@ -39,7 +47,7 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
     )
 
   imageViewContainer.addActionRowComponents((actionRow) =>
-    actionRow.setComponents(addButton, removeButton, reloadButton),
+    actionRow.setComponents(addButton, removeButton, showDetailsButton, reloadButton),
   )
 
   await interaction.editReply({
@@ -49,7 +57,7 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
 }
 
 export const config: ButtonConfig = {
-  name: SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMAGES,
+  name: SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMGS,
   update: false,
   ephemeral: true,
 }

@@ -54,7 +54,7 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
         .setButtonAccessory((button) =>
           button
             .setCustomId(
-              `${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMAGES}-${interaction.user.id}`,
+              `${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMGS}-${interaction.user.id}`,
             )
             .setLabel(bot.config.emojis.view)
             .setStyle(ButtonStyle.Primary),
@@ -94,7 +94,7 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
       await i.deferUpdate()
       await runSettings({ bot, interaction, hexColor, db } as ButtonInteractionProps<"cached">)
     } else if (
-      i.customId !== `${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMAGES}-${interaction.user.id}`
+      i.customId !== `${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMGS}-${interaction.user.id}`
     ) {
       collector.stop("canceled")
     }

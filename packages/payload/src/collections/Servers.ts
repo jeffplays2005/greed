@@ -37,14 +37,17 @@ export const Servers: CollectionConfig = {
             {
               name: "description",
               type: "text",
+              required: true,
             },
             {
               name: "imageHash",
               type: "text",
+              required: true,
             },
             {
               name: "imageUrl",
               type: "text",
+              required: true,
             },
           ],
         },
