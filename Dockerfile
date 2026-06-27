@@ -13,6 +13,7 @@ COPY --link package.json bun.lock tsconfig.json ./
 COPY --link ./apps/bot/package.json ./apps/bot/package.json
 COPY --link ./packages/payload/package.json ./packages/payload/package.json
 COPY --link ./packages/shared/package.json ./packages/shared/package.json
+COPY --link ./packages/image-hash/package.json ./packages/image-hash/package.json
 RUN bun install --filter bot
 
 # Stage 2: Prepare entrypoint
