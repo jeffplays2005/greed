@@ -97,4 +97,21 @@ export class ServerCollection {
 
     return await this.updateServerById(server.id, { phishingImageSettings })
   }
+
+  /**
+   * Removes a phishing image from the server's phishing image settings.
+   *
+   * @param serverId The Discord ID of the server to remove the image from.
+   * @param imageId The Payload row ID of the image to remove.
+   * @returns The updated server.
+   */
+  public async removePhishingImage(serverId: string, imageId: string): Promise<Server> {
+    const server = await this.getOrCreateServerByDiscordId(serverId)
+    const phishingImageSettings = server.phishingImageSettings || { bannedImages: [] }
+
+    phishingImageSettings.bannedImages =
+      phishingImageSettings.bannedImages?.filter((image) => image.id !== imageId) ?? []
+
+    return await this.updateServerById(server.id, { phishingImageSettings })
+  }
 }

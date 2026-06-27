@@ -15,6 +15,12 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
     .setLabel("+")
     .setStyle(ButtonStyle.Success)
 
+  const removeButton = new ButtonBuilder()
+    .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_REMOVE_IMAGE}-${interaction.user.id}`)
+    .setLabel("-")
+    .setStyle(ButtonStyle.Danger)
+    .setDisabled(!images.some((image) => image.id))
+
   const reloadButton = new ButtonBuilder()
     .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_VIEW_IMAGES}-${interaction.user.id}`)
     .setLabel(bot.config.emojis.reload)
@@ -24,7 +30,7 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
     .setAccentColor(hexColor)
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent(
-        `### **__${interaction.guild.name}__** banned image\n-# add or remove images used by image phishing protection`,
+        `### **__${interaction.guild.name}__** banned phishing images\n-# add or remove images used by image phishing protection. note that when new images are added, you must reload the message to see the updated changes!`,
       ),
     )
     .addSeparatorComponents((separator) => separator)
@@ -33,7 +39,7 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
     )
 
   imageViewContainer.addActionRowComponents((actionRow) =>
-    actionRow.setComponents(addButton, reloadButton),
+    actionRow.setComponents(addButton, removeButton, reloadButton),
   )
 
   await interaction.editReply({
