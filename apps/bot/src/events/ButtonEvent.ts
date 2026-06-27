@@ -50,7 +50,8 @@ const ButtonEvent = async (interaction: Interaction, bot: Client) => {
 
     await buttonModule.run(props)
   } catch (error) {
-    console.error(`[ERROR] Command "${buttonModule.config.name}" execution failed:`, error)
+    console.error(`[ERROR] Command "${buttonModule.config.name}" execution failed`)
+    console.error(error instanceof Error ? error.stack : error)
   }
 }
 
