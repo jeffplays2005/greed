@@ -14,4 +14,5 @@ export enum PhishingImageActions {
   BAN = "BAN",
   KICK = "KICK",
   LOG = "LOG",
+  DELETE = "DELETE",
 }

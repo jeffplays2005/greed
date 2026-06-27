@@ -10,7 +10,7 @@
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PhishingImageActions".
  */
-export type PhishingImageActions = ('KICK' | 'BAN' | 'LOG') | null;
+export type PhishingImageActions = ('KICK' | 'BAN' | 'LOG' | 'DELETE') | null;
 /**
  * Supported timezones in IANA format.
  *

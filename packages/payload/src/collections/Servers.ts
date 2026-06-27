@@ -60,7 +60,7 @@ export const Servers: CollectionConfig = {
           name: "defaultAction",
           type: "select",
           interfaceName: "PhishingImageActions",
-          options: ["KICK", "BAN", "LOG"],
+          options: ["KICK", "BAN", "LOG", "DELETE"],
           defaultValue: "BAN",
         },
       ],
