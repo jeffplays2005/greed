@@ -10,7 +10,7 @@ import { checkMemberPermissions } from "@/utils/security/helpers"
  * @param bot The bot client instance.
  */
 const DetectPhishingImageEvent = async (message: Message, bot: Client) => {
-  if (!message.guild) return
+  if (!message.guild || message.author.bot) return
   if (message.attachments.size === 0) return
   // avoid kicking auditors
   if (checkMemberPermissions(message, ["ManageMessages"])) return
