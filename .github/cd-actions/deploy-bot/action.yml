@@ -49,6 +49,7 @@ runs:
         cp -r ./apps/bot/. app/apps/bot
         cp -r ./packages/payload/. app/packages/payload
         cp -r ./packages/shared/. app/packages/shared
+        cp -r ./packages/image-hash/. app/packages/image-hash
 
     - name: Upload combined directory to E2
       uses: burnett01/rsync-deployments@8.0.4

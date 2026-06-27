@@ -1,0 +1,40 @@
+{
+  "name": "@repo/image-hash",
+  "version": "7.0.1",
+  "description": "Create a hash from an image",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danm/image-hash.git"
+  },
+  "author": "Daniel Morrison <daniel.morrison@bbc.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danm/image-hash/issues"
+  },
+  "homepage": "https://github.com/danm/image-hash#readme",
+  "dependencies": {
+    "@cwasm/webp": "^0.1.5",
+    "file-type": "^21.0.0",
+    "jpeg-js": "^0.4.0",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/pngjs": "^6.0.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.25.0"
+    }
+  }
+}

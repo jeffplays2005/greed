@@ -1,5 +1,5 @@
+import { imageHash } from "@repo/image-hash"
 import { type Attachment, AttachmentBuilder, type Message } from "discord.js"
-import { imageHash } from "image-hash"
 import type { Client } from "@/types/Client"
 
 const PhishingImgHelper = {
