@@ -205,6 +205,7 @@ export interface PhishingImageSettings {
         description: string;
         imageHash: string;
         imageUrl: string;
+        bannedBy: string;
         id?: string | null;
       }[]
     | null;
@@ -405,6 +406,7 @@ export interface PhishingImageSettingsSelect<T extends boolean = true> {
         description?: T;
         imageHash?: T;
         imageUrl?: T;
+        bannedBy?: T;
         id?: T;
       };
   defaultAction?: T;

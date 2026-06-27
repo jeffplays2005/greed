@@ -49,6 +49,11 @@ export const Servers: CollectionConfig = {
               type: "text",
               required: true,
             },
+            {
+              name: "bannedBy",
+              type: "text",
+              required: true,
+            },
           ],
         },
         {

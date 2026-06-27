@@ -86,7 +86,13 @@ export const run = async ({
       allowedMentions: {},
     })
 
-  await bot.db.servers.addPhishingImage(interaction.guild.id, imageName, imageHash, msg.url)
+  await bot.db.servers.addPhishingImage(
+    interaction.guild.id,
+    imageName,
+    imageHash,
+    msg.url,
+    interaction.user.id,
+  )
 
   await runImageView({ interaction, db, hexColor, bot } as ButtonInteractionProps<"cached">)
 }

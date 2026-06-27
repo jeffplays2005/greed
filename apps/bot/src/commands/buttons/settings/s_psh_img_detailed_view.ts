@@ -84,6 +84,7 @@ export const run = async ({ interaction, db, hexColor, bot }: ButtonInteractionP
         textDisplay.setContent(
           `### **__${interaction.guild.name}__** banned image details
 **image description:** ${selectedImage.description || "unnamed banned image"}
+**image banned by:** <@${selectedImage.bannedBy || "unknown"}>
 **image hash:** ${selectedImage.imageHash || "no image hash"}
 **document ref id:** ${selectedImageId}`,
         ),
@@ -97,6 +98,7 @@ export const run = async ({ interaction, db, hexColor, bot }: ButtonInteractionP
 
     await i.editReply({
       components: [detailedViewComponent, gallery],
+      allowedMentions: {},
     })
   })
 

@@ -85,6 +85,7 @@ export class ServerCollection {
     description: string,
     imageHash: string,
     imageUrl: string,
+    bannedBy: string,
   ): Promise<Server> {
     const server = await this.getOrCreateServerByDiscordId(serverId)
 
@@ -93,6 +94,7 @@ export class ServerCollection {
       description,
       imageHash,
       imageUrl,
+      bannedBy,
     })
 
     return await this.updateServerById(server.id, { phishingImageSettings })
