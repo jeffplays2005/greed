@@ -15,8 +15,7 @@ import { getMember } from "@/utils/parsers"
 
 export const run = async ({ bot, message, args, color, prefix }: BaseCommandProps) => {
   const member = getMember({ message, toFind: args[0], excludeSelf: true })
-  console.log(member)
-  console.log(args[0])
+
   if (!member) {
     await message.reply({
       embeds: [createSimpleEmbed("you must mention a valid user!", color)],
