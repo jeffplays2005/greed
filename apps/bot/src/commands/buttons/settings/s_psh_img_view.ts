@@ -6,9 +6,9 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
   const settings = await db.servers.getOrCreateServerByDiscordId(interaction.guild.id)
   const images = settings.phishingImageSettings?.bannedImages ?? []
 
-  const hashes = images.length
-    ? images.map((hash) => `${hash}`).join("\n")
-    : "-# no banned image hashes configured"
+  const bannedImageNames = images.length
+    ? images.map((image) => `\`${image.description}\``).join("\n")
+    : "-# no banned images configured"
 
   const addButton = new ButtonBuilder()
     .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_ADD_IMAGE}-${interaction.user.id}`)
@@ -24,12 +24,12 @@ export const run = async ({ bot, interaction, db, hexColor }: ButtonInteractionP
     .setAccentColor(hexColor)
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent(
-        `### **__${interaction.guild.name}__** banned image hashes\n-# add or remove image hashes used by image phishing protection`,
+        `### **__${interaction.guild.name}__** banned image\n-# add or remove images used by image phishing protection`,
       ),
     )
     .addSeparatorComponents((separator) => separator)
     .addTextDisplayComponents((textDisplay) =>
-      textDisplay.setContent(`**configured hashes**\n${hashes}`),
+      textDisplay.setContent(`**configured banned images**\n${bannedImageNames}`),
     )
 
   imageViewContainer.addActionRowComponents((actionRow) =>
