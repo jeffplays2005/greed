@@ -3,8 +3,15 @@ import { SettingsButtons } from "@/types/interactions"
 import type { ButtonConfig, ButtonInteractionProps } from "@/types/interactions/Button"
 import { createSimpleEmbed } from "@/utils/embeds"
 import PhishingImgHelper from "@/utils/phishing-img-helper"
+import { run as runImageView } from "./s_psh_img_view"
 
-export const run = async ({ bot, interaction, color }: ButtonInteractionProps<"cached">) => {
+export const run = async ({
+  bot,
+  interaction,
+  color,
+  db,
+  hexColor,
+}: ButtonInteractionProps<"cached">) => {
   const InteractionIds = {
     ADD_IMAGE_MODAL: "add_image_modal",
     IMAGE_NAME_INPUT: "image_name_input",
@@ -66,17 +73,22 @@ export const run = async ({ bot, interaction, color }: ButtonInteractionProps<"c
 
   const msg = await PhishingImgHelper.uploadImg(bot, imageURL)
   const attachment = msg?.attachments.first()
-  if (!msg || !attachment) return
+  if (!msg || !attachment)
+    return interaction.channel?.send({
+      embeds: [createSimpleEmbed(`failed to upload image ${imageName}`, color)],
+      allowedMentions: {},
+    })
 
   const imageHash = await PhishingImgHelper.getImgHash(attachment.url)
-  if (!imageHash) return
+  if (!imageHash)
+    return interaction.channel?.send({
+      embeds: [createSimpleEmbed(`failed to get image details for ${imageName}`, color)],
+      allowedMentions: {},
+    })
 
   await bot.db.servers.addPhishingImage(interaction.guild.id, imageName, imageHash, msg.url)
 
-  return interaction.channel?.send({
-    embeds: [createSimpleEmbed(`added banned image hash for \`${imageName}\``, color)],
-    allowedMentions: {},
-  })
+  await runImageView({ interaction, db, hexColor, bot } as ButtonInteractionProps<"cached">)
 }
 export const config: ButtonConfig = {
   name: SettingsButtons.PHISHING_IMAGE_SETTINGS_ADD_IMAGE,
