@@ -10,8 +10,15 @@ const Config = {
   servers: {
     support: ["721726753147453583"],
   },
+  channels: {
+    phishingImgUpld: "1520032729008181279",
+  },
   emojis: {
     balance: "<:01keys:927172772336136222>",
+    return: "↩️",
+    reload: "🔃",
+    add: "➕",
+    view: "👁️",
   },
 }
 

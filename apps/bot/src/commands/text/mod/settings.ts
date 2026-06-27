@@ -25,6 +25,20 @@ export const run = async ({ message, hexColor }: BaseCommandProps<true>) => {
             .setStyle(ButtonStyle.Primary),
         ),
     )
+    .addSectionComponents((section) =>
+      section
+        .addTextDisplayComponents((textDisplay) =>
+          textDisplay.setContent(
+            "**phishing image settings**\n-# configure server image phishing protection settings",
+          ),
+        )
+        .setButtonAccessory((button) =>
+          button
+            .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_BUTTON}-${message.author.id}`)
+            .setLabel("⚙️")
+            .setStyle(ButtonStyle.Primary),
+        ),
+    )
 
   return message.reply({
     components: [settingsContainer],

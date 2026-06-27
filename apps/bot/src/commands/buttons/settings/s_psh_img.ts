@@ -1,12 +1,7 @@
 import { ButtonBuilder, ButtonStyle, ContainerBuilder } from "discord.js"
-
-import type { ButtonInteractionProps } from "@/types/interactions"
-import type { ButtonConfig } from "@/types/interactions/Button"
+import type { ButtonConfig, ButtonInteractionProps } from "@/types/interactions/Button"
 import { SettingsButtons } from "@/types/interactions/enums"
 
-/**
- * Handle just displaying the settings confession configurations
- */
 export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionProps<"cached">) => {
   const server = await db.servers.getOrCreateServerByDiscordId(interaction.guild.id)
 
@@ -15,18 +10,18 @@ export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionP
     .setLabel(bot.config.emojis.return)
     .setStyle(ButtonStyle.Secondary)
 
-  const confessionSettingsDisplay = new ContainerBuilder()
+  const imagePhishingSettingsDisplay = new ContainerBuilder()
     .setAccentColor(hexColor)
     .addSectionComponents((section) =>
       section
         .addTextDisplayComponents((textDisplay) =>
           textDisplay.setContent(
-            `### **__${interaction.guild.name}__** confession settings\n-# configure confession settings such as the channel to direct confessions or cooldowns`,
+            `### **__${interaction.guild.name}__** image phishing settings\n-# configure automod config for detecting common scam images, fake giveaways, and impersonation attempts`,
           ),
         )
         .setButtonAccessory((button) =>
           button
-            .setCustomId(`${SettingsButtons.CONFESSION_SETTINGS_EDIT}-${interaction.user.id}`)
+            .setCustomId(`${SettingsButtons.PHISHING_IMAGE_SETTINGS_EDIT}-${interaction.user.id}`)
             .setLabel("📝")
             .setStyle(ButtonStyle.Primary),
         ),
@@ -34,23 +29,23 @@ export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionP
     .addSeparatorComponents((separator) => separator)
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent(
-        `**the channel for confessions to be sent to**\n${server.confessionSettings?.channel ? `<#${server.confessionSettings?.channel}>` : "none"}`,
+        `**number of banned images**\n${server.phishingImageSettings?.bannedImages?.length || 0}`,
       ),
     )
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent(
-        `**configure the cooldown for confessions**\n${server.confessionSettings?.cooldownSeconds ? `${server.confessionSettings?.cooldownSeconds / 60}m` : "5m"}`,
+        `**default action**\n${server.phishingImageSettings?.defaultAction?.toLowerCase()}`,
       ),
     )
     .addActionRowComponents((actionRow) => actionRow.setComponents(returnButton))
 
   await interaction.editReply({
-    components: [confessionSettingsDisplay],
+    components: [imagePhishingSettingsDisplay],
   })
 }
 
 export const config: ButtonConfig = {
-  name: SettingsButtons.CONFESSION_SETTINGS_BUTTON,
+  name: SettingsButtons.PHISHING_IMAGE_SETTINGS_BUTTON,
   update: true,
   ephemeral: false,
 }

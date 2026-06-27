@@ -34,7 +34,7 @@ export const run = async ({ interaction, hexColor }: ButtonInteractionProps<"cac
 }
 
 export const config: ButtonConfig = {
-  name: "s_return",
+  name: SettingsButtons.CONFESSION_SETTINGS_BUTTON,
   update: true,
   ephemeral: false,
 }

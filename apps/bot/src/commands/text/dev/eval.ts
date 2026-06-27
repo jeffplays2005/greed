@@ -1,6 +1,5 @@
 /** biome-ignore-all lint/correctness/noUnusedFunctionParameters: need to use during eval */
 import { inspect } from "node:util"
-// biome-ignore lint/correctness/noUnusedImports: for use during eval
 import * as Discord from "discord.js"
 import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 
@@ -16,6 +15,9 @@ export const run = async ({
   prefix,
 }: BaseCommandProps) => {
   if (message.author.id !== "543185949803151370") return
+
+  // for use during eval
+  Discord.EmbedBuilder
 
   const clean = (toCheck: unknown) => {
     let textToCheck = String(toCheck) // Convert to string to handle all types
