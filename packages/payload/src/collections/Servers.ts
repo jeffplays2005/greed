@@ -65,5 +65,20 @@ export const Servers: CollectionConfig = {
         },
       ],
     },
+    {
+      name: "bumpInfo",
+      type: "group",
+      interfaceName: "BumpInfo",
+      fields: [
+        {
+          name: "bumpedAt",
+          type: "date",
+        },
+        {
+          name: "nextBump",
+          type: "date",
+        },
+      ],
+    },
   ],
 }
