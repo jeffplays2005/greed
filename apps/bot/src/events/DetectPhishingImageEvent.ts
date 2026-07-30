@@ -48,7 +48,7 @@ const DetectPhishingImageEvent = async (message: Message, bot: Client) => {
               console.log("phishing img detected")
               break
           }
-        } catch (_) {}
+        } catch {}
       }
     }
   }

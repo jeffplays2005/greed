@@ -13,6 +13,11 @@ const Config = {
   channels: {
     phishingImgUpld: "1520032729008181279",
   },
+  interactions: {
+    external: {
+      bump: "</bump:947088344167366698>",
+    },
+  },
   emojis: {
     balance: "<:01keys:927172772336136222>",
     return: "↩️",
