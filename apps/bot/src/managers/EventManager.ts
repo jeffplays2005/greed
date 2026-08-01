@@ -1,4 +1,5 @@
 import { Events } from "discord.js"
+import DetectBumpMessage from "@/events/DetectBumpMessage"
 import DetectPhishingImageEvent from "@/events/DetectPhishingImageEvent"
 import ReadyConfigEvent from "@/events/ReadyConfigEvent"
 import type { Client } from "@/types/Client"
@@ -19,6 +20,7 @@ const EventManager = (bot: Client) => {
   bot.on(Events.MessageCreate, (message) => {
     MessageEvent(message, bot)
     DetectPhishingImageEvent(message, bot)
+    DetectBumpMessage(message, bot)
   })
   bot.on(Events.InteractionCreate, (interaction) => {
     ButtonEvent(interaction, bot)
