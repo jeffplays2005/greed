@@ -42,6 +42,25 @@ export class ServerCollection {
   }
 
   /**
+   * Retrieves servers that need to be bumped (i.e., whose next bump date is in the past).
+   *
+   * @returns An array of servers that need to be bumped.
+   */
+  public async getServersToBump(): Promise<Server[]> {
+    return (
+      await this.db.find({
+        collection: "servers",
+        where: {
+          "bumpInfo.nextBump": {
+            less_than: new Date().toISOString(),
+          },
+        },
+        pagination: false,
+      })
+    ).docs
+  }
+
+  /**
    * Retrieves a server by its Discord ID, or creates it if it doesn't exist.
    *
    * @param discordId The Discord ID of the server.
