@@ -13,8 +13,8 @@ import ReadyEvent from "../events/ReadyEvent"
  * @param bot The bot client
  */
 const EventManager = (bot: Client) => {
-  bot.once(Events.ClientReady, (readyClient) => {
-    ReadyEvent(readyClient)
+  bot.once(Events.ClientReady, (_readyClient) => {
+    ReadyEvent(bot)
     ReadyConfigEvent(bot)
   })
   bot.on(Events.MessageCreate, (message) => {

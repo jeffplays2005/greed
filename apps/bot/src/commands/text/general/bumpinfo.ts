@@ -7,7 +7,7 @@ export const run = async ({ bot, message, color, db }: BaseCommandProps<true>) =
   const serverData = await db.servers.getOrCreateServerByDiscordId(message.guild.id)
   const { bumpInfo } = serverData
 
-  if (!bumpInfo || !bumpInfo.bumpedAt || !bumpInfo.nextBump)
+  if (!bumpInfo?.nextBump)
     return message.reply({
       embeds: [
         createSimpleEmbed(
@@ -21,7 +21,7 @@ export const run = async ({ bot, message, color, db }: BaseCommandProps<true>) =
   const bumpInfoEmbed = new EmbedBuilder()
     .setTitle("bump info")
     .setDescription(
-      `bumped at: ${milisecondsToDiscordFormat(bumpInfo.bumpedAt)}
+      `bumped at: ${milisecondsToDiscordFormat(bumpInfo.bumpedAt!)}
         next bump: ${milisecondsToDiscordFormat(bumpInfo.nextBump)}`,
     )
     .setColor(color)
