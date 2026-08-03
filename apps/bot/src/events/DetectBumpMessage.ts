@@ -10,8 +10,8 @@ const DetectBumpMessage = async (message: Message, bot: Client) => {
   const now = new Date()
   const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000)
 
-  await bot.db.servers.getOrCreateServerByDiscordId(message.guild.id)
-  await bot.db.servers.updateServerById(message.guild.id, {
+  const serverData = await bot.db.servers.getOrCreateServerByDiscordId(message.guild.id)
+  await bot.db.servers.updateServerById(serverData.id, {
     bumpInfo: { bumpedAt: now.toUTCString(), nextBump: twoHoursLater.toUTCString() },
   })
 }
