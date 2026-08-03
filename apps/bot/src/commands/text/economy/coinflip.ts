@@ -6,7 +6,14 @@ export const run = async ({ message, args, color, db, bot }: BaseCommandProps) =
   const { balance } = userData
 
   let amt: number | string = args[0]
-  if (!amt || amt.includes(".") || Number.parseInt(amt) < 0)
+
+  if (!amt)
+    return message.reply({
+      embeds: [createSimpleEmbed("you need to mention an amount to coinflip!", color)],
+      allowedMentions: {},
+    })
+
+  if (amt.includes(".") || Number.parseInt(amt) < 0)
     return message.reply({
       embeds: [createSimpleEmbed("invalid amount to coinflip!", color)],
       allowedMentions: {},
