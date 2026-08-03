@@ -5,6 +5,6 @@
  * @param flags optional flags to pass to the timestamp
  * @returns the timestamp in discord's timestamp format
  */
-export function milisecondsToDiscordFormat(timestamp: string, flags = "") {
+export function milisecondsToDiscordFormat(timestamp: number, flags = "") {
   return `<t:${`${timestamp}`.slice(0, -3)}${flags}>`
 }
