@@ -24,6 +24,7 @@ const Config = {
   },
   emojis: {
     balance: "<:01keys:927172772336136222>",
+    balance_loading: "<a:keys_loading:1533807643322482748>",
     return: "↩️",
     reload: "🔃",
     add: "➕",
