@@ -21,8 +21,8 @@ export const run = async ({ bot, message, color, db }: BaseCommandProps<true>) =
   const bumpInfoEmbed = new EmbedBuilder()
     .setTitle("bump info")
     .setDescription(
-      `bumped at: ${milisecondsToDiscordFormat(bumpInfo.bumpedAt!)}
-        next bump: ${milisecondsToDiscordFormat(bumpInfo.nextBump)}`,
+      `bumped at: ${milisecondsToDiscordFormat(new Date(bumpInfo.bumpedAt!).getTime())}
+        next bump: ${milisecondsToDiscordFormat(new Date(bumpInfo.nextBump).getTime())}`,
     )
     .setColor(color)
 
