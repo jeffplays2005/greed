@@ -66,6 +66,18 @@ export const Servers: CollectionConfig = {
       ],
     },
     {
+      name: "notificationSettings",
+      type: "group",
+      interfaceName: "NotificationSettings",
+      required: false,
+      fields: [
+        {
+          name: "bumpChannel",
+          type: "text",
+        },
+      ],
+    },
+    {
       name: "bumpInfo",
       type: "group",
       interfaceName: "BumpInfo",

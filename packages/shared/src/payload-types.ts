@@ -184,6 +184,7 @@ export interface Server {
   serverId?: string | null;
   confessionSettings?: ConfessionSettings;
   phishingImageSettings?: PhishingImageSettings;
+  notificationSettings?: NotificationSettings;
   bumpInfo?: BumpInfo;
   updatedAt: string;
   createdAt: string;
@@ -211,6 +212,13 @@ export interface PhishingImageSettings {
       }[]
     | null;
   defaultAction?: PhishingImageActions;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NotificationSettings".
+ */
+export interface NotificationSettings {
+  bumpChannel?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -393,6 +401,7 @@ export interface ServersSelect<T extends boolean = true> {
   serverId?: T;
   confessionSettings?: T | ConfessionSettingsSelect<T>;
   phishingImageSettings?: T | PhishingImageSettingsSelect<T>;
+  notificationSettings?: T | NotificationSettingsSelect<T>;
   bumpInfo?: T | BumpInfoSelect<T>;
   updatedAt?: T;
   createdAt?: T;
@@ -420,6 +429,13 @@ export interface PhishingImageSettingsSelect<T extends boolean = true> {
         id?: T;
       };
   defaultAction?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NotificationSettings_select".
+ */
+export interface NotificationSettingsSelect<T extends boolean = true> {
+  bumpChannel?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

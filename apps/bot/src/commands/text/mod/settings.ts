@@ -39,6 +39,20 @@ export const run = async ({ message, hexColor }: BaseCommandProps<true>) => {
             .setStyle(ButtonStyle.Primary),
         ),
     )
+    .addSectionComponents((section) =>
+      section
+        .addTextDisplayComponents((textDisplay) =>
+          textDisplay.setContent(
+            "**notification settings**\n-# configure channels for bump reminders and other server notifications",
+          ),
+        )
+        .setButtonAccessory((button) =>
+          button
+            .setCustomId(`${SettingsButtons.NOTIFICATION_SETTINGS_BUTTON}-${message.author.id}`)
+            .setLabel("⚙️")
+            .setStyle(ButtonStyle.Primary),
+        ),
+    )
 
   return message.reply({
     components: [settingsContainer],

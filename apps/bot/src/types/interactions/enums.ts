@@ -7,6 +7,8 @@ export enum SettingsButtons {
   PHISHING_IMAGE_SETTINGS_ADD_IMG = "s_psh_img_add",
   PHISHING_IMAGE_SETTINGS_REMOVE_IMG = "s_psh_img_remove",
   PHISHING_IMAGE_SETTINGS_DETAILED_IMG_VIEW = "s_psh_img_detailed_view",
+  NOTIFICATION_SETTINGS_BUTTON = "s_ntf",
+  NOTIFICATION_SETTINGS_EDIT = "s_ntf_edit",
   SETTINGS_RETURN_BUTTON = "s_return",
 }
 

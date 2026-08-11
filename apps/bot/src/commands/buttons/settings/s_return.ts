@@ -39,6 +39,20 @@ export const run = async ({ interaction, hexColor }: ButtonInteractionProps<"cac
             .setStyle(ButtonStyle.Primary),
         ),
     )
+    .addSectionComponents((section) =>
+      section
+        .addTextDisplayComponents((textDisplay) =>
+          textDisplay.setContent(
+            "**notification settings**\n-# configure channels for bump reminders and other server notifications",
+          ),
+        )
+        .setButtonAccessory((button) =>
+          button
+            .setCustomId(`${SettingsButtons.NOTIFICATION_SETTINGS_BUTTON}-${interaction.user.id}`)
+            .setLabel("⚙️")
+            .setStyle(ButtonStyle.Primary),
+        ),
+    )
 
   return interaction.editReply({
     components: [settingsContainer],
