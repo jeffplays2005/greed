@@ -18,28 +18,34 @@ const ReadyEvent = (bot: Client) => {
 
   setInterval(async () => {
     const servers = await bot.db.servers.getServersToBump()
-    servers.forEach(async (server) => {
-      delete server.bumpInfo?.nextBump
-
+    for (const server of servers) {
       // Delete the nextBump field from the server so the reminder doesn't keep getting triggered
       await bot.db.servers.updateServerById(server.id, {
         bumpInfo: { ...server.bumpInfo, nextBump: null },
       })
 
-      if (server.serverId === bot.config.servers.support[0]) {
-        const channel = bot.channels.cache.get(bot.config.channels.xo.general)
-        if (channel?.isSendable()) {
-          channel.send({
-            embeds: [
-              createSimpleEmbed(
-                `<:y_folderXODONTSTEAL:868918785367748678> ; the server is ready to be bumped! ${bot.config.interactions.external.bump}`,
-                bot.config.defaultHexColor,
-              ),
-            ],
-          })
-        }
+      const bumpChannelId = server.notificationSettings?.bumpChannel
+      if (!bumpChannelId) continue
+
+      try {
+        const channel = await bot.channels.fetch(bumpChannelId)
+        if (!channel?.isSendable()) continue
+
+        await channel.send({
+          embeds: [
+            createSimpleEmbed(
+              `<:y_folderXODONTSTEAL:868918785367748678> ; the server is ready to be bumped! ${bot.config.interactions.external.bump}`,
+              bot.config.defaultHexColor,
+            ),
+          ],
+        })
+      } catch (error) {
+        console.error(
+          `[ERROR] Failed to send bump reminder for server "${server.serverId}" to channel "${bumpChannelId}"`,
+          error,
+        )
       }
-    })
+    }
   }, 60_000)
 }
 
