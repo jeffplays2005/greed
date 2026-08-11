@@ -11,7 +11,8 @@
       "!packages/shared/src/payload-types.ts",
       "!packages/payload/src/app/(payload)/layout.tsx",
       "!packages/payload/src/app/(payload)/admin/*",
-      "!packages/payload/next-env.d.ts"
+      "!packages/payload/next-env.d.ts",
+      "!packages/image-hash"
     ]
   },
   "formatter": {
