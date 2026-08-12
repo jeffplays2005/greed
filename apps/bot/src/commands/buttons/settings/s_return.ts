@@ -42,9 +42,7 @@ export const run = async ({ interaction, hexColor }: ButtonInteractionProps<"cac
     .addSectionComponents((section) =>
       section
         .addTextDisplayComponents((textDisplay) =>
-          textDisplay.setContent(
-            "**notification settings**\n-# configure channels for bump reminders and other server notifications",
-          ),
+          textDisplay.setContent("**notification settings**\n-# configure log channels"),
         )
         .setButtonAccessory((button) =>
           button

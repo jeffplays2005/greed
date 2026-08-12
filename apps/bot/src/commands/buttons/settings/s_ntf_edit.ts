@@ -12,19 +12,30 @@ import { run as runSettings } from "./s_ntf"
 
 enum InteractionIds {
   BUMP_CHANNEL_SELECT = "ntf_bump_channel_select",
+  MODERATION_CHANNEL_SELECT = "ntf_moderation_channel_select",
   NOTIFICATION_CONFIRM = "ntf_confirm-ignore",
 }
 
 export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionProps<"cached">) => {
   let server = await db.servers.getOrCreateServerByDiscordId(interaction.guild.id)
   let bumpChannelId: string | null = null
+  let moderationChannelId: string | null = null
 
-  const channelSelector = new ChannelSelectMenuBuilder()
+  const bumpChannelSelector = new ChannelSelectMenuBuilder()
     .setCustomId(InteractionIds.BUMP_CHANNEL_SELECT)
     .setChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
     .setPlaceholder(
       server.notificationSettings?.bumpChannel
         ? `#${interaction.guild.channels.cache.get(server.notificationSettings.bumpChannel)?.name ?? "configured channel"}`
+        : "select channel",
+    )
+
+  const moderationChannelSelector = new ChannelSelectMenuBuilder()
+    .setCustomId(InteractionIds.MODERATION_CHANNEL_SELECT)
+    .setChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
+    .setPlaceholder(
+      server.notificationSettings?.moderationChannel
+        ? `#${interaction.guild.channels.cache.get(server.notificationSettings.moderationChannel)?.name ?? "configured channel"}`
         : "select channel",
     )
 
@@ -49,7 +60,11 @@ export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionP
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent("**configure the channel for bump reminders**"),
     )
-    .addActionRowComponents((actionRow) => actionRow.setComponents(channelSelector))
+    .addActionRowComponents((actionRow) => actionRow.setComponents(bumpChannelSelector))
+    .addTextDisplayComponents((textDisplay) =>
+      textDisplay.setContent("**configure the channel for moderation actions**"),
+    )
+    .addActionRowComponents((actionRow) => actionRow.setComponents(moderationChannelSelector))
     .addActionRowComponents((actionRow) => actionRow.setComponents(confirmButton, cancelButton))
 
   const message = await interaction.editReply({
@@ -65,12 +80,16 @@ export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionP
     if (i.isChannelSelectMenu() && i.customId === InteractionIds.BUMP_CHANNEL_SELECT) {
       bumpChannelId = i.values[0] ?? null
       await i.deferUpdate()
+    } else if (i.isChannelSelectMenu() && i.customId === InteractionIds.MODERATION_CHANNEL_SELECT) {
+      moderationChannelId = i.values[0] ?? null
+      await i.deferUpdate()
     } else if (i.isButton() && i.customId === InteractionIds.NOTIFICATION_CONFIRM) {
       server = await db.servers.getOrCreateServerByDiscordId(interaction.guild.id)
 
       await db.servers.updateServerById(server.id, {
         notificationSettings: {
           bumpChannel: bumpChannelId ?? server.notificationSettings?.bumpChannel,
+          moderationChannel: moderationChannelId ?? server.notificationSettings?.moderationChannel,
         },
       })
 
