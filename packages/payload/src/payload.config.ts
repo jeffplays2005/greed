@@ -9,6 +9,7 @@ import { ConfessionMutes } from "./collections/ConfessionMutes"
 import { Confessions } from "./collections/Confessions"
 import { Servers } from "./collections/Servers"
 import { Users } from "./collections/Users"
+import { Warns } from "./collections/Warns"
 import { BotConfig } from "./globals/BotConfig"
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Admins, Users, Servers, Confessions, ConfessionMutes],
+  collections: [Admins, Users, Servers, Confessions, ConfessionMutes, Warns],
   globals: [BotConfig],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

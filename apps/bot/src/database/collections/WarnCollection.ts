@@ -1,0 +1,103 @@
+import type { Warn } from "@repo/shared/payload-types"
+import type { Payload, Where } from "payload"
+
+export class WarnCollection {
+  private db: Payload
+
+  constructor(db: Payload) {
+    this.db = db
+  }
+
+  /**
+   * Creates a new warn for the specified user on the specified server.
+   *
+   * @param data The data for the warn to be created.
+   * @returns The created warn.
+   */
+  public async createWarn(data: Omit<Warn, "id" | "createdAt" | "updatedAt">): Promise<Warn> {
+    return this.db.create({
+      collection: "warns",
+      data,
+    })
+  }
+
+  /**
+   * Retrieves the warns for the specified user on the specified server.
+   *
+   * @param serverId The ID of the server to get warns for.
+   * @param userId The ID of the user to get warns for.
+   * @returns The user's warns on the server.
+   */
+  public async getServerWarns(serverId: string, userId?: string): Promise<Warn[]> {
+    const where: Where = {
+      server: {
+        equals: serverId,
+      },
+    }
+
+    if (userId) {
+      where.to = {
+        equals: userId,
+      }
+    }
+
+    return (
+      await this.db.find({
+        collection: "warns",
+        where,
+        sort: "-createdAt",
+        depth: 1,
+        pagination: false,
+      })
+    ).docs
+  }
+
+  /**
+   * Checks if the specified user has a final warn on the specified server.
+   *
+   * @param serverId The ID of the server to check.
+   * @param userId The ID of the user to check.
+   * @returns Whether the user has a final warn on the server.
+   */
+  public async hasFinalWarn(serverId: string, userId: string): Promise<boolean> {
+    const result = await this.db.find({
+      collection: "warns",
+      where: {
+        server: {
+          equals: serverId,
+        },
+        to: {
+          equals: userId,
+        },
+        final: {
+          equals: true,
+        },
+      },
+      limit: 1,
+    })
+
+    return result.docs.length > 0
+  }
+
+  /**
+   * Clears all warns for the specified user on the specified server.
+   *
+   * @param serverId The ID of the server to clear warns for.
+   * @param userId The ID of the user to clear warns for.
+   * @returns The cleared warns.
+   */
+  public async clearUserWarns(serverId: string, userId: string): Promise<Warn[]> {
+    const warnings = await this.getServerWarns(serverId, userId)
+
+    await Promise.all(
+      warnings.map((warning) =>
+        this.db.delete({
+          collection: "warns",
+          id: warning.id,
+        }),
+      ),
+    )
+
+    return warnings
+  }
+}

@@ -77,6 +77,7 @@ export interface Config {
     servers: Server;
     confessions: Confession;
     'confession-mutes': ConfessionMute;
+    warns: Warn;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -89,6 +90,7 @@ export interface Config {
     servers: ServersSelect<false> | ServersSelect<true>;
     confessions: ConfessionsSelect<false> | ConfessionsSelect<true>;
     'confession-mutes': ConfessionMutesSelect<false> | ConfessionMutesSelect<true>;
+    warns: WarnsSelect<false> | WarnsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -219,6 +221,7 @@ export interface PhishingImageSettings {
  */
 export interface NotificationSettings {
   bumpChannel?: string | null;
+  moderationChannel?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -276,6 +279,26 @@ export interface ConfessionMute {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "warns".
+ */
+export interface Warn {
+  id: string;
+  reason: string;
+  /**
+   * The discord user ID
+   */
+  by: string;
+  /**
+   * The discord user ID
+   */
+  to: string;
+  server: string | Server;
+  final?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -317,6 +340,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'confession-mutes';
         value: string | ConfessionMute;
+      } | null)
+    | ({
+        relationTo: 'warns';
+        value: string | Warn;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -436,6 +463,7 @@ export interface PhishingImageSettingsSelect<T extends boolean = true> {
  */
 export interface NotificationSettingsSelect<T extends boolean = true> {
   bumpChannel?: T;
+  moderationChannel?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -465,6 +493,19 @@ export interface ConfessionMutesSelect<T extends boolean = true> {
   serverId?: T;
   mutedBy?: T;
   reason?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "warns_select".
+ */
+export interface WarnsSelect<T extends boolean = true> {
+  reason?: T;
+  by?: T;
+  to?: T;
+  server?: T;
+  final?: T;
   updatedAt?: T;
   createdAt?: T;
 }
