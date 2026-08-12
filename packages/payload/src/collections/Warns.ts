@@ -6,28 +6,36 @@ export const Warns: CollectionConfig = {
     {
       name: "reason",
       type: "text",
+      required: true,
     },
     {
       name: "by",
-      type: "relationship",
-      relationTo: "users",
+      type: "text",
+      admin: {
+        description: "The discord user ID",
+      },
       required: true,
     },
     {
       name: "to",
-      type: "relationship",
-      relationTo: "users",
+      type: "text",
+      admin: {
+        description: "The discord user ID",
+      },
       required: true,
     },
     {
       name: "server",
-      type: "relationship",
-      relationTo: "servers",
+      type: "text",
+      admin: {
+        description: "The discord server ID",
+      },
       required: true,
     },
     {
       name: "final",
       type: "checkbox",
+      defaultValue: false,
     },
   ],
 }

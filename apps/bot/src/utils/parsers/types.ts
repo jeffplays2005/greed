@@ -14,6 +14,10 @@ export type GetMemberOptions<T extends boolean> = {
    * Fallsback to returning the message's member themselves if nobody was found.
    */
   excludeSelf: T
+  /**
+   * Whether to exclude name search when finding a member.
+   */
+  excludeNameSearch?: boolean
 }
 
 export type GetUserOptions<T extends boolean> = {

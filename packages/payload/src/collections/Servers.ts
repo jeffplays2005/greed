@@ -75,6 +75,10 @@ export const Servers: CollectionConfig = {
           name: "bumpChannel",
           type: "text",
         },
+        {
+          name: "moderationChannel",
+          type: "text",
+        },
       ],
     },
     {

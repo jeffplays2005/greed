@@ -31,7 +31,7 @@ export const run = async ({ bot, interaction, hexColor, db }: ButtonInteractionP
     .addSeparatorComponents((separator) => separator)
     .addTextDisplayComponents((textDisplay) =>
       textDisplay.setContent(
-        `**bump reminder channel**\n${server.notificationSettings?.bumpChannel ? `<#${server.notificationSettings.bumpChannel}>` : "none"}`,
+        `**bump reminder channel**\n${server.notificationSettings?.bumpChannel ? `<#${server.notificationSettings.bumpChannel}>` : "none"}\n\n**moderation channel**\n${server.notificationSettings?.moderationChannel ? `<#${server.notificationSettings.moderationChannel}>` : "none"}`,
       ),
     )
     .addActionRowComponents((actionRow) => actionRow.setComponents(returnButton))
