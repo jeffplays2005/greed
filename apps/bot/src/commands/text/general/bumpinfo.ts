@@ -3,9 +3,12 @@ import type { BaseCommandConfig, BaseCommandProps } from "@/types/command"
 import { createSimpleEmbed } from "@/utils/embeds"
 import { milisecondsToDiscordFormat } from "@/utils/parsers"
 
-export const run = async ({ bot, message, color, db }: BaseCommandProps<true>) => {
+export const run = async ({ bot, message, color, db, prefix }: BaseCommandProps<true>) => {
   const serverData = await db.servers.getOrCreateServerByDiscordId(message.guild.id)
-  const { bumpInfo } = serverData
+  const { bumpInfo, notificationSettings } = serverData
+  const bumpChannel = notificationSettings?.bumpChannel
+    ? `<#${notificationSettings.bumpChannel}>`
+    : `configure this using \`${prefix}settings\``
 
   if (!bumpInfo?.nextBump)
     return message.reply({
@@ -22,7 +25,9 @@ export const run = async ({ bot, message, color, db }: BaseCommandProps<true>) =
     .setTitle("bump info")
     .setDescription(
       `bumped at: ${milisecondsToDiscordFormat(new Date(bumpInfo.bumpedAt!).getTime())}
-        next bump: ${milisecondsToDiscordFormat(new Date(bumpInfo.nextBump).getTime())}`,
+        next bump: ${milisecondsToDiscordFormat(new Date(bumpInfo.nextBump).getTime())}
+
+        notification channel: ${bumpChannel}`,
     )
     .setColor(color)
 
