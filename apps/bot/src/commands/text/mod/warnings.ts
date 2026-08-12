@@ -31,7 +31,7 @@ export const run = async ({ bot, message, args, db, color, prefix }: BaseCommand
         .addFields(
           {
             name: "warning commands",
-            value: `\`${prefix}warn <user> <reason>\` - warn a member\n\`${prefix}cwarn <user>\` - clear a member's warnings\n\`${prefix}fwarn <user> <reason>\` - give a final warning`,
+            value: `\`${prefix}warn <user> <reason>\` - warn a member\n\`${prefix}cwarn <user>\` - clear a member's warnings\n\`${prefix}rwarn <warning id>\` - remove a warning\n\`${prefix}fwarn <user> <reason>\` - give a final warning`,
           },
           {
             name: "formatting",

@@ -123,4 +123,27 @@ export class WarnCollection {
       },
     })
   }
+
+  /**
+   * Removes a warning by ID if it belongs to the specified server.
+   *
+   * @param serverId The ID of the server the warning must belong to.
+   * @param warningId The ID of the warning to remove.
+   * @returns The removed warning, or `undefined` if no matching warning exists.
+   */
+  public async removeServerWarn(serverId: string, warningId: string): Promise<Warn | undefined> {
+    const result = await this.db.delete({
+      collection: "warns",
+      where: {
+        id: {
+          equals: warningId,
+        },
+        server: {
+          equals: serverId,
+        },
+      },
+    })
+
+    return result.docs[0]
+  }
 }
