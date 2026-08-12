@@ -26,9 +26,18 @@ export class WarnCollection {
    *
    * @param serverId The ID of the server to get warns for.
    * @param userId The ID of the user to get warns for.
+   * @param filters Optional filters to apply to the warns query.
    * @returns The user's warns on the server.
    */
-  public async getServerWarns(serverId: string, userId?: string): Promise<Warn[]> {
+  public async getServerWarns(
+    serverId: string,
+    userId?: string,
+    filters: {
+      olderThan?: number
+      newerThan?: number
+      final?: boolean
+    } = {},
+  ): Promise<Warn[]> {
     const where: Where = {
       server: {
         equals: serverId,
@@ -40,6 +49,21 @@ export class WarnCollection {
         equals: userId,
       }
     }
+
+    if (filters.olderThan) {
+      where.createdAt = {
+        less_than: new Date(filters.olderThan).toISOString(),
+      }
+    }
+
+    if (filters.newerThan) {
+      where.createdAt = {
+        ...where.createdAt,
+        greater_than: new Date(filters.newerThan).toISOString(),
+      }
+    }
+
+    if (filters.final) where.final = { equals: true }
 
     return (
       await this.db.find({

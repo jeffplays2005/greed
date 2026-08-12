@@ -15,6 +15,7 @@ export function getMember({
   message,
   toFind = "",
   excludeSelf = true,
+  excludeNameSearch = false,
 }: GetMemberOptions<boolean>): GuildMember | undefined {
   const lowercaseFind = toFind.toLowerCase()
 
@@ -24,7 +25,7 @@ export function getMember({
 
   if (!target && message.mentions.members) target = message.mentions.members.first()
 
-  if (!target && lowercaseFind) {
+  if (!excludeNameSearch && !target && lowercaseFind) {
     target = message.guild.members.cache.find((member) => {
       return (
         member.displayName.toLowerCase().includes(lowercaseFind) ||
