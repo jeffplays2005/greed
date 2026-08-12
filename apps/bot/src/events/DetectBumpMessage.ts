@@ -5,7 +5,7 @@ const DetectBumpMessage = async (message: Message, bot: Client) => {
   if (!message.guild || message.author.id !== bot.config.users.disboard || !message.embeds) return
 
   // Check embed contents
-  if (!message.embeds[0].description?.includes("Bump done!")) return
+  if (!message.embeds[0]?.description?.includes("Bump done!")) return
 
   const now = new Date()
   const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000)
