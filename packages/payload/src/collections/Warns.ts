@@ -26,8 +26,10 @@ export const Warns: CollectionConfig = {
     },
     {
       name: "server",
-      type: "relationship",
-      relationTo: "servers",
+      type: "text",
+      admin: {
+        description: "The discord server ID",
+      },
       required: true,
     },
     {

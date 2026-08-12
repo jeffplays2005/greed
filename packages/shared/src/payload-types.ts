@@ -292,7 +292,10 @@ export interface Warn {
    * The discord user ID
    */
   to: string;
-  server: string | Server;
+  /**
+   * The discord server ID
+   */
+  server: string;
   final?: boolean | null;
   updatedAt: string;
   createdAt: string;

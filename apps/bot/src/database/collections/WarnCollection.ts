@@ -86,18 +86,17 @@ export class WarnCollection {
    * @param userId The ID of the user to clear warns for.
    * @returns The cleared warns.
    */
-  public async clearUserWarns(serverId: string, userId: string): Promise<Warn[]> {
-    const warnings = await this.getServerWarns(serverId, userId)
-
-    await Promise.all(
-      warnings.map((warning) =>
-        this.db.delete({
-          collection: "warns",
-          id: warning.id,
-        }),
-      ),
-    )
-
-    return warnings
+  public async clearUserWarns(serverId: string, userId: string) {
+    return this.db.delete({
+      collection: "warns",
+      where: {
+        server: {
+          equals: serverId,
+        },
+        to: {
+          equals: userId,
+        },
+      },
+    })
   }
 }
