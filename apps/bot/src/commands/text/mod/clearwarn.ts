@@ -30,6 +30,25 @@ export const run = async ({ bot, message, args, db, color }: BaseCommandProps<tr
     .setColor(color)
     .setTimestamp()
 
+  let failedToDm = false
+  await member
+    .send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("warnings cleared")
+          .setDescription(
+            `your ${clearedWarnings.docs.length} warning${clearedWarnings.docs.length === 1 ? " has" : "s have"} been cleared in **${message.guild.name}**.`,
+          )
+          .setColor(color)
+          .setTimestamp(),
+      ],
+      allowedMentions: {},
+    })
+    .catch(() => {
+      failedToDm = true
+      clearedEmbed.setFooter({ text: "failed to dm" })
+    })
+
   const clearedSummary = clearedWarnings.docs
     .map((warning) => `${warning.id} | ${warning.reason || "no reason provided"}`)
     .join("\n")
@@ -38,7 +57,9 @@ export const run = async ({ bot, message, args, db, color }: BaseCommandProps<tr
   const logChannelId = await sendModerationLog(message, db, {
     embeds: [
       EmbedBuilder.from(clearedEmbed)
-        .setFooter({ text: `cleared by: ${message.author.tag} (${message.author.id})` })
+        .setFooter({
+          text: `cleared by: ${message.author.tag} (${message.author.id})${failedToDm ? " | failed to dm" : ""}`,
+        })
         .addFields({ name: "warnings cleared", value: clearedSummary }),
     ],
     allowedMentions: {},
